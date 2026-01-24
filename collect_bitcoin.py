@@ -2,7 +2,7 @@ import json
 import os
 import pandas as pd
 import pandas_ta as ta
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 # Handle case-sensitivity in the tvDatafeed library
 try:
@@ -18,33 +18,38 @@ os.makedirs(folder_path, exist_ok=True)
 # 2. Initialize TradingView
 tv = TvDatafeed()
 
+# Define JST Timezone (UTC+9)
+JST = timezone(timedelta(hours=9))
+
 def get_projection(pattern_name):
     """Predictive logic for Bitcoin price action"""
     name = pattern_name.lower()
     if "bullish" in name:
-        return "Bias: Bullish. Bitcoin showing strength. Watch for a breakout above local resistance."
+        return "Bias: Bullish. Bitcoin showing strength. Expect upward continuation; look for a break above the recent high."
     elif "bearish" in name:
-        return "Bias: Bearish. Caution required. Look for support levels to hold."
+        return "Bias: Bearish. Caution required. Expect downward pressure; watch for support levels to hold."
     elif "doji" in name:
-        return "Bias: Neutral. Indecision in the crypto market. High volatility expected."
+        return "Bias: Neutral. Indecision in the crypto market. High volatility usually follows this candle."
     elif "hammer" in name:
-        return "Bias: Reversal. Potential bottoming signal. Look for high volume confirmation."
+        return "Bias: Reversal. Potential bottoming signal. Look for a bullish confirmation candle next."
     else:
-        return "Bias: Consolidation. Standard BTC sideways movement."
+        return "Bias: Consolidation. Standard BTC movement. Watch for a breakout of the current range."
 
 def analyze_all_patterns(df):
-    """Scans for all 60+ patterns on Bitcoin"""
+    """Scans for 60+ patterns on the LAST COMPLETED candle"""
     df.columns = [x.lower() for x in df.columns]
     patterns_df = df.ta.cdl_pattern(name="all")
     
     if patterns_df is None or patterns_df.empty:
-        return "Normal", "Steady BTC movement.", "Maintain watch."
+        return "Normal", "Steady BTC movement.", "Wait for next candle close."
 
-    latest_candle = patterns_df.iloc[-1]
-    active_patterns = latest_candle[latest_candle != 0]
+    # Look at the SECOND to last candle (index -2) because the last one (index -1) is still LIVE
+    completed_candle = patterns_df.iloc[-2] 
+    
+    active_patterns = completed_candle[completed_candle != 0]
     
     if active_patterns.empty:
-        return "Normal", "No specific BTC pattern detected.", "Wait for a clear signal."
+        return "Normal", "No specific BTC pattern detected on the last completed candle.", "Wait for a clear signal."
 
     found_list = []
     for raw_name, value in active_patterns.items():
@@ -53,9 +58,10 @@ def analyze_all_patterns(df):
         found_list.append(f"{sentiment} {clean_name}")
 
     final_name = ", ".join(found_list)
+    explanation = f"Confirmed {final_name} detected."
     projection = get_projection(found_list[0])
     
-    return final_name, f"Detected: {final_name}.", projection
+    return final_name, explanation, projection
 
 def update_bitcoin_json():
     intervals = {
@@ -65,26 +71,28 @@ def update_bitcoin_json():
         "1 Hour": Interval.in_1_hour
     }
     
-    # Run-time of the script
-    run_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M %z")
-    new_entry = {"run_timestamp": run_time, "timeframes": {}}
+    # Current Run-time in JST
+    run_time_jst = datetime.now(JST).strftime("%Y-%m-%d %H:%M JST")
+    new_entry = {"run_timestamp_jst": run_time_jst, "timeframes": {}}
 
-    print(f"Analyzing Bitcoin (BTC/USD) - Run Time: {run_time}...")
+    print(f"Analyzing Bitcoin (BTC/USD) - JST Time: {run_time_jst}...")
 
     for label, tv_interval in intervals.items():
         try:
             df = tv.get_hist(symbol='BTCUSD', exchange='BITSTAMP', interval=tv_interval, n_bars=100)
             
             if df is not None and not df.empty:
-                # GET THE ACTUAL CANDLE TIME FROM DATAFRAME INDEX
-                candle_time = df.index[-1].strftime("%Y-%m-%d %H:%M")
+                # Convert the candle index to JST
+                # TradingView data is usually UTC; we add 9 hours
+                last_completed_index = df.index[-2] # Reference the completed candle
+                jst_candle_time = (last_completed_index + timedelta(hours=9)).strftime("%Y-%m-%d %H:%M JST")
                 
                 pattern, desc, next_move = analyze_all_patterns(df)
                 
-                # STORE USING THE SPECIFIC CANDLE TIME AS THE KEY
                 new_entry["timeframes"][label] = {
-                    "candle_detected_at": candle_time,
-                    "price": round(df['close'].iloc[-1], 2),
+                    "last_completed_candle_jst": jst_candle_time,
+                    "price_at_close": round(df['close'].iloc[-2], 2), # Price of the completed candle
+                    "current_live_price": round(df['close'].iloc[-1], 2),
                     "pattern": pattern,
                     "explanation": desc,
                     "whats_next": next_move
@@ -101,7 +109,6 @@ def update_bitcoin_json():
             except:
                 full_history = []
 
-    # Save to history
     full_history.append(new_entry)
     with open(file_path, 'w') as f:
         json.dump(full_history, f, indent=4)
