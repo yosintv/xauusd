@@ -31,5 +31,38 @@
                 "whats_next": "Wait for a clear signal."
             }
         }
+    },
+    {
+        "run_timestamp": "2026-01-24 12:02 +0000",
+        "timeframes": {
+            "15 Minute": {
+                "candle_detected_at": "2026-01-24 12:00",
+                "price": 89455.0,
+                "pattern": "Bullish Doji 10 0.1",
+                "explanation": "Detected: Bullish Doji 10 0.1.",
+                "whats_next": "Bias: Bullish. Bitcoin showing strength. Watch for a breakout above local resistance."
+            },
+            "30 Minute": {
+                "candle_detected_at": "2026-01-24 12:00",
+                "price": 89455.0,
+                "pattern": "Bullish Doji 10 0.1",
+                "explanation": "Detected: Bullish Doji 10 0.1.",
+                "whats_next": "Bias: Bullish. Bitcoin showing strength. Watch for a breakout above local resistance."
+            },
+            "45 Minute": {
+                "candle_detected_at": "2026-01-24 12:00",
+                "price": 89455.0,
+                "pattern": "Bullish Doji 10 0.1",
+                "explanation": "Detected: Bullish Doji 10 0.1.",
+                "whats_next": "Bias: Bullish. Bitcoin showing strength. Watch for a breakout above local resistance."
+            },
+            "1 Hour": {
+                "candle_detected_at": "2026-01-24 12:00",
+                "price": 89455.0,
+                "pattern": "Bullish Doji 10 0.1",
+                "explanation": "Detected: Bullish Doji 10 0.1.",
+                "whats_next": "Bias: Bullish. Bitcoin showing strength. Watch for a breakout above local resistance."
+            }
+        }
     }
 ]
