@@ -1,8 +1,12 @@
 name: XAUUSD Data Collector
+
 on:
   schedule:
     - cron: '0,15,30,45 * * * *' # Runs every 15 minutes to capture all timeframes
   workflow_dispatch: # Allows manual testing
+
+permissions:
+  contents: write # Essential fix for the 403 Permission Denied error
 
 jobs:
   build:
@@ -20,7 +24,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pandas pandas_ta
-          # Install the specific version to avoid import errors
+          # Using the stable git-based install for tvdatafeed
           pip install git+https://github.com/rongardF/tvdatafeed.git
 
       - name: Run Collector Script
@@ -30,6 +34,14 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the specific JSON file
           git add data/value.json
-          git commit -m "Automated XAUUSD Update: $(date)" || echo "No changes to commit"
-          git push
+          
+          # Only commit and push if the file has actually changed
+          if git diff --staged --quiet; then
+            echo "No changes detected in value.json. Skipping commit."
+          else
+            git commit -m "Automated XAUUSD Update: $(date)"
+            git push origin main
+          fi
