@@ -2,9 +2,9 @@ import json
 import os
 import pandas as pd
 import pandas_ta as ta
-from datetime import datetime
+from datetime import datetime, timezone
 
-# Handle case-sensitivity in the tvDatafeed library
+# Case-sensitive import handling for tvDatafeed
 try:
     from tvDatafeed import TvDatafeed, Interval
 except ImportError:
@@ -15,35 +15,42 @@ folder_path = 'data'
 file_path = os.path.join(folder_path, 'value.json')
 os.makedirs(folder_path, exist_ok=True)
 
-# 2. Initialize TradingView (Guest Mode)
+# 2. Initialize TradingView
 tv = TvDatafeed()
 
-def analyze_patterns(df):
-    """Detects patterns and returns name + explanation"""
-    # Standardize column names for pandas_ta (needs open, high, low, close)
+def analyze_all_patterns(df):
+    """Scans for all available candlestick patterns in pandas_ta"""
+    # Standardize column names
     df.columns = [x.lower() for x in df.columns]
     
-    # Calculate Candlestick Patterns
-    # cdl_pattern returns a DataFrame where values are 100 (Bullish), -100 (Bearish), or 0
-    patterns = df.ta.cdl_pattern(name=["engulfing", "doji", "hammer"])
+    # This executes all available candlestick pattern recognition functions
+    # Returns a DataFrame where each column is a pattern (e.g., CDL_MORNINGSTAR)
+    patterns_df = df.ta.cdl_pattern(name="all")
     
-    if patterns is None or patterns.empty:
-        return "Normal", "Steady market movement with no specific candle formation."
+    if patterns_df is None or patterns_df.empty:
+        return "Normal", "Steady market movement."
 
-    last_row = patterns.iloc[-1]
+    # Get the last row (latest candle)
+    latest_candle_patterns = patterns_df.iloc[-1]
     
-    # Pattern Logic
-    if last_row.get('CDL_ENGULFING', 0) != 0:
-        res = "Bullish Engulfing" if last_row['CDL_ENGULFING'] > 0 else "Bearish Engulfing"
-        return res, "The current candle body fully consumes the previous one, suggesting a strong trend reversal."
+    # Filter only patterns that were actually detected (value != 0)
+    detected = latest_candle_patterns[latest_candle_patterns != 0]
     
-    if last_row.get('CDL_DOJI_10_0.1', 0) != 0:
-        return "Doji", "Indicates market indecision: the opening and closing prices are nearly equal."
+    if detected.empty:
+        return "Normal", "No specific candlestick pattern detected."
+
+    # Pick the first detected pattern name
+    # Clean up the name (e.g., 'CDL_MORNINGSTAR' -> 'Morningstar')
+    raw_name = detected.index[0]
+    pattern_name = raw_name.replace('CDL_', '').replace('_', ' ').title()
     
-    if last_row.get('CDL_HAMMER', 0) != 0:
-        return "Hammer", "A bullish reversal pattern showing buyers pushed price back up after a drop."
+    # Determine direction based on value (positive = bullish, negative = bearish)
+    direction = "Bullish" if detected.iloc[0] > 0 else "Bearish"
+    full_name = f"{direction} {pattern_name}"
     
-    return "Normal", "No significant candlestick pattern identified in this timeframe."
+    explanation = f"A {direction} {pattern_name} pattern was detected, suggesting a potential {direction.lower()} move."
+    
+    return full_name, explanation
 
 def update_json():
     intervals = {
@@ -53,52 +60,40 @@ def update_json():
         "1h": Interval.in_1_hour
     }
     
-    # Current timestamp for recording
-    now = datetime.now()
-    timestamp_str = now.strftime("%Y-%m-%d %H:%M")
+    now = datetime.now(timezone.utc)
+    timestamp_str = now.strftime("%Y-%m-%d %H:%M %z")
     new_entry = {"timestamp": timestamp_str, "data": {}}
 
     print(f"Fetching data for {timestamp_str}...")
 
     for label, tv_interval in intervals.items():
         try:
-            # Fetch 50 bars to ensure enough data for pattern analysis
-            df = tv.get_hist(symbol='XAUUSD', exchange='OANDA', interval=tv_interval, n_bars=50)
-            
+            df = tv.get_hist(symbol='XAUUSD', exchange='OANDA', interval=tv_interval, n_bars=100)
             if df is not None and not df.empty:
-                pattern, desc = analyze_patterns(df)
+                pattern, desc = analyze_all_patterns(df)
                 new_entry["data"][label] = {
                     "price": round(df['close'].iloc[-1], 2),
                     "pattern": pattern,
                     "explanation": desc
                 }
-            else:
-                print(f"Warning: No data returned for {label}")
         except Exception as e:
             print(f"Error fetching {label}: {e}")
 
-    # 3. Load, Append, and Save
+    # 3. Load and Append (Unlimited)
     full_history = []
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
             try:
                 full_history = json.load(f)
-            except json.JSONDecodeError:
+            except:
                 full_history = []
 
-    # Check for duplicate timestamp to prevent double-entries
+    # Prevent duplicates
     if not any(d.get('timestamp') == timestamp_str for d in full_history):
         full_history.append(new_entry)
-        
-        # Keep only last 1000 records to keep file size small
-        if len(full_history) > 1000:
-            full_history = full_history[-1000:]
-
         with open(file_path, 'w') as f:
             json.dump(full_history, f, indent=4)
-        print("Successfully updated data/value.json")
-    else:
-        print("Data for this timestamp already exists. Skipping.")
+        print(f"Saved. Total records: {len(full_history)}")
 
 if __name__ == "__main__":
     update_json()
