@@ -1,57 +1,55 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-import time
+import json
+import os
 
 URL = "https://roxiestreams.live/soccer"
 
-def get_stream_links():
+def scrape_streams():
+    results = []
     try:
-        # 1. Fetch the main page
-        response = requests.get(URL, timeout=10)
-        response.raise_for_status()
+        # Fetch the main page
+        response = requests.get(URL, timeout=15)
         soup = BeautifulSoup(response.text, 'html.parser')
-
-        # 2. Find all match links (based on your screenshot)
-        # We look for 'a' tags that likely lead to the player pages
-        match_links = soup.find_all('a', href=True)
         
-        streams_found = []
-
-        for link in match_links:
-            match_url = link['href']
-            # Ensure it's a full URL
+        # Look for the links in the table (based on common sports site layouts)
+        match_rows = soup.find_all('a', href=True)
+        
+        for row in match_rows:
+            match_url = row['href']
             if not match_url.startswith('http'):
                 match_url = f"https://roxiestreams.live{match_url}"
             
+            # Skip non-match links
+            if "/soccer/" not in match_url:
+                continue
+                
             try:
-                # 3. Visit each match page to find the <button> tags
-                match_page = requests.get(match_url, timeout=5)
-                # Regex to find .m3u8 links inside showPlayer('...', 'LINK')
+                # Visit the specific match page
+                match_page = requests.get(match_url, timeout=10)
+                # Extract links from the showPlayer function
                 m3u8_links = re.findall(r"showPlayer\('.*?',\s*'(.*?)'\)", match_page.text)
                 
                 if m3u8_links:
-                    match_name = link.text.strip()
-                    streams_found.append({
-                        "match": match_name,
-                        "links": m3u8_links
+                    results.append({
+                        "match_title": row.text.strip(),
+                        "match_url": match_url,
+                        "m3u8_links": m3u8_links
                     })
-            except Exception:
-                continue
+            except Exception as e:
+                print(f"Error scraping match page {match_url}: {e}")
 
-        # 4. Display results
-        print(f"\n--- Updated at {time.strftime('%Y-%m-%d %H:%M:%S')} ---")
-        for item in streams_found:
-            print(f"Match: {item['match']}")
-            for idx, stream in enumerate(item['links'], 1):
-                print(f"  Stream {idx}: {stream}")
-                
+        # Ensure the data directory exists
+        os.makedirs('data', exist_ok=True)
+        
+        # Save to JSON
+        with open('data/roxiestreams.json', 'w') as f:
+            json.dump(results, f, indent=4)
+        print("Successfully updated data/roxiestreams.json")
+
     except Exception as e:
-        print(f"Error fetching data: {e}")
+        print(f"General error: {e}")
 
-# Run every 1 hour (3600 seconds)
 if __name__ == "__main__":
-    while True:
-        get_stream_links()
-        print("\nWaiting 1 hour for next update...")
-        time.sleep(3600)
+    scrape_streams()
