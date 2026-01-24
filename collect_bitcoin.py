@@ -26,22 +26,22 @@ def clean_pattern_name(raw_name):
     """Removes technical suffixes like '10 0.1' and 'CDL_' from names"""
     # Remove 'CDL_' prefix
     name = raw_name.replace('CDL_', '').replace('_', ' ')
-    # Remove trailing numbers, decimals, and extra spaces (e.g., "Doji 10 0.1" -> "Doji")
+    # Remove trailing numbers, decimals, and extra spaces
     name = re.sub(r'[\d\.\s]+$', '', name).strip()
     return name.title()
 
 def get_detailed_explanation(pattern_name, sentiment):
-    """Professional technical descriptions for high-probability patterns"""
+    """Professional technical descriptions for patterns"""
     library = {
-        "Hammer": "A classic reversal signal. Sellers drove price down, but buyers stepped in to close it near the high.",
-        "Doji": "Total market indecision. Bulls and Bears are in a perfect stalemate; a breakout is usually imminent.",
+        "Hammer": "A classic reversal signal. Sellers drove price down, but buyers stepped in to close near the high.",
+        "Doji": "Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
         "Engulfing": "A high-conviction reversal. The current candle body completely covers the previous one.",
         "Inside": "Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
         "Morningstar": "A powerful 3-candle bottom signal. Suggests the downtrend is over and buyers are taking over.",
         "Eveningstar": "A bearish top signal. Indicates exhaustion among buyers and a likely shift to a downtrend.",
-        "Harami": "A sign of a potential trend change. The small 'inside' candle suggests momentum is slowing down.",
-        "Marubozu": "Extreme dominance. No wicks means buyers/sellers controlled the price from open to close.",
-        "Tweezerbottom": "Support floor confirmed. Two candles hitting the same low suggests a strong rejection of lower prices."
+        "Harami": "A sign of a potential trend change. Suggests momentum is slowing down.",
+        "Marubozu": "Extreme dominance. No wicks means one side controlled the price from open to close.",
+        "Tweezerbottom": "Support floor confirmed. Two candles hitting the same low suggests strong rejection."
     }
     desc = library.get(pattern_name, "A technical formation indicating a localized shift in buyer/seller psychology.")
     return f"{sentiment} {pattern_name}: {desc}"
@@ -49,9 +49,9 @@ def get_detailed_explanation(pattern_name, sentiment):
 def get_projection(pattern_name, sentiment):
     """Bitcoin-specific predictive logic"""
     if sentiment == "Bullish":
-        return "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a 5-min pullback or break of the pattern high."
+        return "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
     elif sentiment == "Bearish":
-        return "EXPECTED MOVE: Downward Pressure. Strategy: Protect long positions; watch for tests of local support."
+        return "EXPECTED MOVE: Downward Pressure. Strategy: Protect long positions; watch for tests of support."
     else:
         return "EXPECTED MOVE: Consolidation. Strategy: Avoid high leverage; wait for a confirmed breakout."
 
@@ -79,10 +79,10 @@ def analyze_all_patterns(df):
             
             return f"{sentiment} {clean_name}", f"(Detected {i-1} candle(s) ago) {explanation}", projection
 
-    return "Normal", "No major patterns in last 5 periods. BTC is in standard consolidation.", "Wait for a breakout."
+    return "Normal", "No major patterns in last 5 periods.", "Wait for a breakout."
 
 def update_bitcoin_json():
-    # Added 45 Minute timeframe
+    # Includes the 45 Minute timeframe requested
     intervals = {
         "15 Minute": Interval.in_15_minute,
         "30 Minute": Interval.in_30_minute,
@@ -97,16 +97,16 @@ def update_bitcoin_json():
 
     for label, tv_interval in intervals.items():
         try:
-            # Fetch 100 bars to ensure pattern history is accurate
+            # Fetch 100 bars for accurate pattern history
             df = tv.get_hist(symbol='BTCUSD', exchange='BITSTAMP', interval=tv_interval, n_bars=100)
             
             if df is not None and not df.empty:
-                # 1. Interval Close Price (The price when that specific timeframe's candle finished)
-                interval_close = round(df['close'].iloc[-2], 2)
-                # 2. Live Market Price (The price of the ticking/live candle)
-                live_price = round(df['close'].iloc[-1], 2)
+                # Interval Close Price (Last completed candle)
+                interval_close = float(round(df['close'].iloc[-2], 2))
+                # Live Market Price (Current ticking candle)
+                live_price = float(round(df['close'].iloc[-1], 2))
                 
-                # JST Timestamp for the candle
+                # JST Timestamp for the candle end time
                 candle_time = (df.index[-2] + timedelta(hours=9)).strftime("%Y-%m-%d %H:%M JST")
                 
                 pattern, desc, next_move = analyze_all_patterns(df)
@@ -122,18 +122,20 @@ def update_bitcoin_json():
         except Exception as e:
             print(f"Error fetching {label}: {e}")
 
-    # Unlimited History Append
+    # History Management
     full_history = []
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
             try:
                 full_history = json.load(f)
-            except:
+            except json.JSONDecodeError:
                 full_history = []
 
     full_history.append(new_entry)
+    
     with open(file_path, 'w') as f:
         json.dump(full_history, f, indent=4)
+    
     print(f"Bitcoin history updated. Total entries: {len(full_history)}")
 
 if __name__ == "__main__":
