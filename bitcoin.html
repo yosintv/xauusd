@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Full History Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        :root { --bg: #0b0f1a; --card: #161b2a; --text: #e2e8f0; --accent: #f59e0b; --bullish: #10b981; --bearish: #ef4444; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.5; }
+        .container { max-width: 1300px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #2d3748; padding-bottom: 20px; margin-bottom: 30px; }
+        .controls { background: var(--card); padding: 10px 15px; border-radius: 8px; border: 1px solid #2d3748; }
+        #datePicker { background: transparent; border: none; color: white; cursor: pointer; font-size: 0.9rem; }
+        .chart-section { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #2d3748; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #2d3748; position: relative; }
+        .card:hover { border-color: var(--accent); }
+        .time-header { font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .full-date { font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: block; }
+        .price-display { background: #0b0f1a; padding: 15px; border-radius: 8px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center; }
+        .price-val { font-size: 1.6rem; font-weight: 800; color: #fff; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; position: absolute; top: 20px; right: 20px; }
+        .badge-bull { background: var(--bullish); color: #000; }
+        .badge-bear { background: var(--bearish); color: #fff; }
+        .badge-neut { background: #4a5568; color: #fff; }
+        .explanation { font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px; }
+        .prediction-box { border-top: 1px solid #2d3748; padding-top: 15px; font-size: 0.85rem; color: #cbd5e1; }
+        #loader { text-align: center; padding: 100px; font-size: 1.2rem; color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1 style="margin:0; font-size: 1.8rem;">Bitcoin Signal History</h1>
+            <p style="color: #64748b; margin: 5px 0 0 0;">JST Timezone • Live Analysis</p>
+        </div>
+        <div class="controls">
+            <span style="font-size: 0.8rem; color: #64748b;">BROWSE HISTORY:</span>
+            <input type="text" id="datePicker" placeholder="Select Date">
+        </div>
+    </header>
+
+    <div id="loader">Syncing with Bitcoin database...</div>
+
+    <div id="mainContent" style="display:none;">
+        <div class="chart-section">
+            <canvas id="priceChart" height="90"></canvas>
+        </div>
+        <div id="timeframeGrid" class="grid"></div>
+    </div>
+</div>
+
+<script>
+    const dataUrl = 'https://yosintv.github.io/xauusd/data/bitcoin.json';
+    let fullHistory = [];
+    let chartInstance = null;
+
+    async function loadData() {
+        try {
+            const res = await fetch(dataUrl);
+            fullHistory = await res.json();
+            
+            // Get unique dates for the picker
+            const dates = [...new Set(fullHistory.map(h => h.run_timestamp_jst.split(' ')[0]))];
+            
+            flatpickr("#datePicker", {
+                enable: dates,
+                defaultDate: dates[dates.length - 1],
+                onChange: ([date], dateStr) => {
+                    const latestOnDay = fullHistory.filter(h => h.run_timestamp_jst.startsWith(dateStr)).pop();
+                    if (latestOnDay) updateUI(latestOnDay);
+                }
+            });
+
+            updateUI(fullHistory[fullHistory.length - 1]);
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        } catch (e) {
+            document.getElementById('loader').innerText = "Failed to load data. Please check connection.";
+        }
+    }
+
+    function updateUI(entry) {
+        const grid = document.getElementById('timeframeGrid');
+        grid.innerHTML = '';
+        
+        const chartData = { labels: [], prices: [] };
+
+        // Process each timeframe (15m, 30m, 45m, 1h)
+        Object.entries(entry.timeframes).forEach(([label, info]) => {
+            const isBull = info.pattern_found.toLowerCase().includes('bull');
+            const isBear = info.pattern_found.toLowerCase().includes('bear');
+            const badgeClass = isBull ? 'badge-bull' : (isBear ? 'badge-bear' : 'badge-neut');
+            
+            chartData.labels.push(info.last_closed_candle_jst.split(' ')[1]); // Time only for chart labels
+            chartData.prices.push(info.interval_close_price);
+
+            grid.innerHTML += `
+                <div class="card">
+                    <span class="badge ${badgeClass}">${info.pattern_found}</span>
+                    <div class="time-header">${label} Window</div>
+                    <span class="full-date">${info.last_closed_candle_jst}</span>
+                    
+                    <div class="price-display">
+                        <div>
+                            <div style="font-size: 0.7rem; color: #64748b;">INTERVAL CLOSE</div>
+                            <div class="price-val">$${info.interval_close_price.toLocaleString()}</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 0.7rem; color: #64748b;">LIVE PRICE</div>
+                            <div style="font-size: 1.1rem; font-weight: bold;">$${info.live_market_price.toLocaleString()}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="explanation">${info.detailed_explanation}</div>
+                    <div class="prediction-box">
+                        <strong>MARKET PROJECTION:</strong><br>
+                        ${info.whats_next_prediction}
+                    </div>
+                </div>
+            `;
+        });
+
+        renderChart(chartData);
+    }
+
+    function renderChart(data) {
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        
+        chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.prices,
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { ticks: { color: '#64748b' }, grid: { display: false } },
+                    y: { ticks: { color: '#64748b' }, grid: { color: '#2d3748' } }
+                }
+            }
+        });
+    }
+
+    loadData();
+    setInterval(loadData, 300000); // Sync every 5 mins
+</script>
+</body>
+</html>
