@@ -4,52 +4,60 @@ import re
 import json
 import os
 
-URL = "https://roxiestreams.live/soccer"
+# The main URL
+BASE_URL = "https://roxiestreams.live"
+SOCCER_URL = f"{BASE_URL}/soccer"
 
 def scrape_streams():
     results = []
+    print(f"Connecting to {SOCCER_URL}...")
+    
     try:
-        # Fetch the main page
-        response = requests.get(URL, timeout=15)
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+        response = requests.get(SOCCER_URL, headers=headers, timeout=15)
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Look for the links in the table (based on common sports site layouts)
-        match_rows = soup.find_all('a', href=True)
+        # 1. Find all potential match links
+        # We look for links that contain 'soccer' or look like subpages
+        all_links = soup.find_all('a', href=True)
+        match_links = []
         
-        for row in match_rows:
-            match_url = row['href']
-            if not match_url.startswith('http'):
-                match_url = f"https://roxiestreams.live{match_url}"
-            
-            # Skip non-match links
-            if "/soccer/" not in match_url:
-                continue
-                
-            try:
-                # Visit the specific match page
-                match_page = requests.get(match_url, timeout=10)
-                # Extract links from the showPlayer function
-                m3u8_links = re.findall(r"showPlayer\('.*?',\s*'(.*?)'\)", match_page.text)
-                
-                if m3u8_links:
-                    results.append({
-                        "match_title": row.text.strip(),
-                        "match_url": match_url,
-                        "m3u8_links": m3u8_links
-                    })
-            except Exception as e:
-                print(f"Error scraping match page {match_url}: {e}")
+        for l in all_links:
+            href = l['href']
+            # Filter for links that likely lead to a player page
+            if "/soccer/" in href and href != "/soccer":
+                full_url = href if href.startswith('http') else f"{BASE_URL}{href}"
+                if full_url not in match_links:
+                    match_links.append((l.text.strip(), full_url))
 
-        # Ensure the data directory exists
+        print(f"Found {len(match_links)} potential matches. Extracting streams...")
+
+        for title, m_url in match_links:
+            try:
+                m_res = requests.get(m_url, headers=headers, timeout=10)
+                # Regex to capture the URL inside showPlayer('clappr', 'URL')
+                # It handles both single and double quotes
+                links = re.findall(r"showPlayer\s*\(\s*['\"].*?['\"]\s*,\s*['\"](https?://.*?\.(?:m3u8|mp4|m3u))['\"]\s*\)", m_res.text)
+                
+                if links:
+                    results.append({
+                        "match_title": title if title else "Untitled Match",
+                        "match_url": m_url,
+                        "m3u8_links": list(set(links)) # remove duplicates
+                    })
+                    print(f"  [✔] Found {len(links)} links for: {title}")
+            except Exception as e:
+                print(f"  [!] Error on {m_url}: {e}")
+
+        # 2. Save to data/roxiestreams.json
         os.makedirs('data', exist_ok=True)
+        with open('data/roxiestreams.json', 'w', encoding='utf-8') as f:
+            json.dump(results, f, indent=4, ensure_ascii=False)
         
-        # Save to JSON
-        with open('data/roxiestreams.json', 'w') as f:
-            json.dump(results, f, indent=4)
-        print("Successfully updated data/roxiestreams.json")
+        print(f"\nDone! Saved {len(results)} matches to data/roxiestreams.json")
 
     except Exception as e:
-        print(f"General error: {e}")
+        print(f"Critical Error: {e}")
 
 if __name__ == "__main__":
     scrape_streams()
