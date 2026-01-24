@@ -109,5 +109,31 @@
                 "whats_next": "Wait for a clear signal."
             }
         }
+    },
+    {
+        "run_timestamp_jst": "2026-01-24 21:20 JST",
+        "timeframes": {
+            "15 Minute": {
+                "last_checked_jst": "2026-01-24 21:00 JST",
+                "price_current": 89420.0,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major technical patterns in the last 5 periods. Price is in standard consolidation.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "30 Minute": {
+                "last_checked_jst": "2026-01-24 20:30 JST",
+                "price_current": 89420.0,
+                "pattern_found": "Bullish Doji 10 0.1",
+                "detailed_explanation": "(Detected 3 candle(s) ago) Bullish Doji 10 0.1: A technical formation indicating a localized shift in buyer/seller psychology.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Continuation. Bitcoin is showing strength. Strategy: Look for entry on a 5-minute pullback or a break of the pattern high."
+            },
+            "1 Hour": {
+                "last_checked_jst": "2026-01-24 20:00 JST",
+                "price_current": 89420.0,
+                "pattern_found": "Bullish Inside",
+                "detailed_explanation": "(Detected 3 candle(s) ago) Bullish Inside: A technical formation indicating a localized shift in buyer/seller psychology.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Continuation. Bitcoin is showing strength. Strategy: Look for entry on a 5-minute pullback or a break of the pattern high."
+            }
+        }
     }
 ]
