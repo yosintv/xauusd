@@ -1,42 +1,5 @@
 [
     {
-        "run_timestamp_jst": "2026-01-24 21:15 JST",
-        "timeframes": {
-            "15 Minute": {
-                "last_completed_candle_jst": "2026-01-24 21:00 JST",
-                "price_at_close": 89414.0,
-                "current_live_price": 89413.0,
-                "pattern": "Normal",
-                "explanation": "No specific BTC pattern detected on the last completed candle.",
-                "whats_next": "Wait for a clear signal."
-            },
-            "30 Minute": {
-                "last_completed_candle_jst": "2026-01-24 20:30 JST",
-                "price_at_close": 89455.0,
-                "current_live_price": 89414.0,
-                "pattern": "Normal",
-                "explanation": "No specific BTC pattern detected on the last completed candle.",
-                "whats_next": "Wait for a clear signal."
-            },
-            "45 Minute": {
-                "last_completed_candle_jst": "2026-01-24 20:15 JST",
-                "price_at_close": 89455.0,
-                "current_live_price": 89414.0,
-                "pattern": "Normal",
-                "explanation": "No specific BTC pattern detected on the last completed candle.",
-                "whats_next": "Wait for a clear signal."
-            },
-            "1 Hour": {
-                "last_completed_candle_jst": "2026-01-24 20:00 JST",
-                "price_at_close": 89455.0,
-                "current_live_price": 89414.0,
-                "pattern": "Normal",
-                "explanation": "No specific BTC pattern detected on the last completed candle.",
-                "whats_next": "Wait for a clear signal."
-            }
-        }
-    },
-    {
         "run_timestamp_jst": "2026-01-24 21:20 JST",
         "timeframes": {
             "15 Minute": {
