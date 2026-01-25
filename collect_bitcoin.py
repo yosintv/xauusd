@@ -24,9 +24,7 @@ JST = timezone(timedelta(hours=9))
 
 def clean_pattern_name(raw_name):
     """Removes technical suffixes like '10 0.1' and 'CDL_' from names"""
-    # Remove 'CDL_' prefix
     name = raw_name.replace('CDL_', '').replace('_', ' ')
-    # Remove trailing numbers, decimals, and extra spaces
     name = re.sub(r'[\d\.\s]+$', '', name).strip()
     return name.title()
 
@@ -63,7 +61,6 @@ def analyze_all_patterns(df):
     if patterns_df is None or patterns_df.empty:
         return "Normal", "Steady BTC movement.", "Wait for next candle close."
 
-    # Loop back through the last 5 COMPLETED candles (starting from index -2)
     for i in range(2, 7): 
         target_candle = patterns_df.iloc[-i]
         active = target_candle[target_candle != 0]
@@ -82,7 +79,6 @@ def analyze_all_patterns(df):
     return "Normal", "No major patterns in last 5 periods.", "Wait for a breakout."
 
 def update_bitcoin_json():
-    # Includes the 45 Minute timeframe requested
     intervals = {
         "15 Minute": Interval.in_15_minute,
         "30 Minute": Interval.in_30_minute,
@@ -90,23 +86,23 @@ def update_bitcoin_json():
         "1 Hour": Interval.in_1_hour
     }
     
-    now_jst = datetime.now(JST).strftime("%Y-%m-%d %H:%M JST")
-    new_entry = {"run_timestamp_jst": now_jst, "timeframes": {}}
+    # --- DEDUPLICATION LOGIC ---
+    # Round current time to the nearest 5-minute block (e.g., 12:03 becomes 12:00)
+    now = datetime.now(JST)
+    rounded_minute = (now.minute // 5) * 5
+    slot_time = now.replace(minute=rounded_minute, second=0, microsecond=0).strftime("%Y-%m-%d %H:%M JST")
+    
+    new_entry = {"run_timestamp_jst": slot_time, "timeframes": {}}
 
-    print(f"Fetching Bitcoin data across 4 timeframes at {now_jst}...")
+    print(f"Fetching Bitcoin data for slot: {slot_time}...")
 
     for label, tv_interval in intervals.items():
         try:
-            # Fetch 100 bars for accurate pattern history
             df = tv.get_hist(symbol='BTCUSD', exchange='BITSTAMP', interval=tv_interval, n_bars=100)
             
             if df is not None and not df.empty:
-                # Interval Close Price (Last completed candle)
                 interval_close = float(round(df['close'].iloc[-2], 2))
-                # Live Market Price (Current ticking candle)
                 live_price = float(round(df['close'].iloc[-1], 2))
-                
-                # JST Timestamp for the candle end time
                 candle_time = (df.index[-2] + timedelta(hours=9)).strftime("%Y-%m-%d %H:%M JST")
                 
                 pattern, desc, next_move = analyze_all_patterns(df)
@@ -131,12 +127,27 @@ def update_bitcoin_json():
             except json.JSONDecodeError:
                 full_history = []
 
-    full_history.append(new_entry)
+    # Check if this 5-minute slot already exists
+    updated = False
+    for i, entry in enumerate(full_history):
+        if entry.get("run_timestamp_jst") == slot_time:
+            full_history[i] = new_entry  # Replace existing data with fresh live prices
+            updated = True
+            print(f"Updated existing entry for {slot_time}")
+            break
+    
+    if not updated:
+        full_history.append(new_entry)
+        print(f"Added new entry for {slot_time}")
+
+    # Safety: Keep only the last 1000 entries (~3.5 days of 5-min data)
+    if len(full_history) > 1000:
+        full_history = full_history[-1000:]
     
     with open(file_path, 'w') as f:
         json.dump(full_history, f, indent=4)
     
-    print(f"Bitcoin history updated. Total entries: {len(full_history)}")
+    print(f"Done. Total history size: {len(full_history)}")
 
 if __name__ == "__main__":
     update_bitcoin_json()
