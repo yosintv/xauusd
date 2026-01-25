@@ -3,163 +3,690 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTC Full History Analytics</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>Bitcoin Trading Dashboard</title>
     <style>
-        :root { --bg: #0b0f1a; --card: #161b2a; --text: #e2e8f0; --accent: #f59e0b; --bullish: #10b981; --bearish: #ef4444; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.5; }
-        .container { max-width: 1300px; margin: 0 auto; }
-        header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #2d3748; padding-bottom: 20px; margin-bottom: 30px; }
-        .controls { background: var(--card); padding: 10px 15px; border-radius: 8px; border: 1px solid #2d3748; }
-        #datePicker { background: transparent; border: none; color: white; cursor: pointer; font-size: 0.9rem; }
-        .chart-section { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #2d3748; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #2d3748; position: relative; }
-        .card:hover { border-color: var(--accent); }
-        .time-header { font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .full-date { font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: block; }
-        .price-display { background: #0b0f1a; padding: 15px; border-radius: 8px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center; }
-        .price-val { font-size: 1.6rem; font-weight: 800; color: #fff; }
-        .badge { padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; position: absolute; top: 20px; right: 20px; }
-        .badge-bull { background: var(--bullish); color: #000; }
-        .badge-bear { background: var(--bearish); color: #fff; }
-        .badge-neut { background: #4a5568; color: #fff; }
-        .explanation { font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px; }
-        .prediction-box { border-top: 1px solid #2d3748; padding-top: 15px; font-size: 0.85rem; color: #cbd5e1; }
-        #loader { text-align: center; padding: 100px; font-size: 1.2rem; color: var(--accent); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1e1f2f 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f59e0b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .status-chip {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #2d3748;
+            background: rgba(45, 55, 72, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .status-chip.live {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .status-chip.offline {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .countdown {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        /* MAIN GRID */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: linear-gradient(135deg, rgba(45, 55, 72, 0.3), rgba(30, 31, 47, 0.5));
+            border: 1px solid #2d3748;
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        #priceChart {
+            width: 100%;
+            height: 300px;
+            display: block;
+        }
+
+        .whats-next-panel {
+            background: linear-gradient(135deg, rgba(45, 55, 72, 0.3), rgba(30, 31, 47, 0.5));
+            border: 1px solid #2d3748;
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .whats-next-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #f59e0b;
+        }
+
+        .strategy-item {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .strategy-timeframe {
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .strategy-pattern {
+            color: #f59e0b;
+            margin: 4px 0;
+        }
+
+        .strategy-action {
+            color: #cbd5e1;
+            margin-top: 4px;
+        }
+
+        /* TIMEFRAME CARDS */
+        .timeframes-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #cbd5e1;
+        }
+
+        .timeframes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(45, 55, 72, 0.3), rgba(30, 31, 47, 0.5));
+            border: 1px solid #2d3748;
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(30, 31, 47, 0.7));
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-timeframe {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #94a3b8;
+        }
+
+        .role-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .price-current {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .price-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 12px;
+        }
+
+        .price-close {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-bottom: 12px;
+        }
+
+        .drift-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .drift-pill.bullish {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .drift-pill.bearish {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .drift-pill.neutral {
+            background: rgba(148, 163, 184, 0.2);
+            color: #cbd5e1;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .pattern-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            margin-bottom: 12px;
+            margin-right: 8px;
+        }
+
+        .explanation {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(45, 55, 72, 0.5);
+        }
+
+        .prediction {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(45, 55, 72, 0.5);
+        }
+
+        /* TIMELINE */
+        .timeline-section {
+            margin-bottom: 20px;
+        }
+
+        .timeline-wrapper {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .timeline-chip {
+            flex-shrink: 0;
+            padding: 12px 16px;
+            background: rgba(45, 55, 72, 0.4);
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .timeline-chip:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #3b82f6;
+        }
+
+        .timeline-chip.active {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .timeline-price {
+            color: #f59e0b;
+            font-weight: 700;
+        }
+
+        .timeline-arrow {
+            font-size: 1.2rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .whats-next-panel {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .timeframes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-current {
+                font-size: 1.5rem;
+            }
+
+            #priceChart {
+                height: 200px;
+            }
+        }
+
+        /* SCROLLBAR */
+        .whats-next-panel::-webkit-scrollbar,
+        .timeline-wrapper::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .whats-next-panel::-webkit-scrollbar-track,
+        .timeline-wrapper::-webkit-scrollbar-track {
+            background: rgba(45, 55, 72, 0.3);
+            border-radius: 10px;
+        }
+
+        .whats-next-panel::-webkit-scrollbar-thumb,
+        .timeline-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(245, 158, 11, 0.4);
+            border-radius: 10px;
+        }
+
+        .whats-next-panel::-webkit-scrollbar-thumb:hover,
+        .timeline-wrapper::-webkit-scrollbar-thumb:hover {
+            background: rgba(245, 158, 11, 0.6);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(245, 158, 11, 0.3);
+            border-top: 3px solid #f59e0b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <div>
-            <h1 style="margin:0; font-size: 1.8rem;">Bitcoin Signal History</h1>
-            <p style="color: #64748b; margin: 5px 0 0 0;">JST Timezone • Live Analysis</p>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo">🚀 BITCOIN TRADING</div>
+            <div class="status-group">
+                <div class="status-chip" id="statusChip">
+                    <span class="spinner"></span> Fetching...
+                </div>
+                <div class="status-chip countdown" id="countdownChip">Next refresh: --:--</div>
+            </div>
         </div>
-        <div class="controls">
-            <span style="font-size: 0.8rem; color: #64748b;">BROWSE HISTORY:</span>
-            <input type="text" id="datePicker" placeholder="Select Date">
-        </div>
-    </header>
 
-    <div id="loader">Syncing with Bitcoin database...</div>
-
-    <div id="mainContent" style="display:none;">
-        <div class="chart-section">
-            <canvas id="priceChart" height="90"></canvas>
+        <!-- MAIN GRID: CHART + STRATEGY -->
+        <div class="main-grid">
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="whats-next-panel">
+                <div class="whats-next-title">WHAT'S NEXT?</div>
+                <div id="strategyContainer"></div>
+            </div>
         </div>
-        <div id="timeframeGrid" class="grid"></div>
+
+        <!-- TIMEFRAMES SECTION -->
+        <div class="timeframes-section">
+            <div class="section-title">Multi-Timeframe Analysis</div>
+            <div class="timeframes-grid" id="timeframesGrid"></div>
+        </div>
+
+        <!-- TIMELINE SECTION -->
+        <div class="timeline-section">
+            <div class="section-title">Price History (Last 8 Runs)</div>
+            <div class="timeline-wrapper" id="timelineWrapper"></div>
+        </div>
     </div>
-</div>
 
-<script>
-    const dataUrl = 'https://yosintv.github.io/xauusd/data/bitcoin.json';
-    let fullHistory = [];
-    let chartInstance = null;
+    <script>
+        const API_URL = 'https://yosintv.github.io/xauusd/data/bitcoin.json';
+        const REFRESH_INTERVAL = 300000; // 5 minutes
+        
+        let allData = [];
+        let lastFetchTime = null;
+        let refreshCountdown = REFRESH_INTERVAL / 1000;
+        let countdownInterval = null;
 
-    async function loadData() {
-        try {
-            const res = await fetch(dataUrl);
-            fullHistory = await res.json();
-            
-            // Get unique dates for the picker
-            const dates = [...new Set(fullHistory.map(h => h.run_timestamp_jst.split(' ')[0]))];
-            
-            flatpickr("#datePicker", {
-                enable: dates,
-                defaultDate: dates[dates.length - 1],
-                onChange: ([date], dateStr) => {
-                    const latestOnDay = fullHistory.filter(h => h.run_timestamp_jst.startsWith(dateStr)).pop();
-                    if (latestOnDay) updateUI(latestOnDay);
+        // ======================== FETCH & INIT ========================
+        async function fetchData() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                allData = await response.json();
+                if (!Array.isArray(allData) || allData.length === 0) throw new Error('Invalid data format');
+                lastFetchTime = Date.now();
+                updateUI();
+                setStatus('live');
+                resetCountdown();
+            } catch (error) {
+                console.error('Fetch error:', error);
+                setStatus('offline');
+                alert('Failed to fetch data: ' + error.message);
+            }
+        }
+
+        function setStatus(status) {
+            const chip = document.getElementById('statusChip');
+            if (status === 'live') {
+                chip.className = 'status-chip live';
+                chip.innerHTML = '● Live';
+            } else if (status === 'offline') {
+                chip.className = 'status-chip offline';
+                chip.innerHTML = '● Offline';
+            } else {
+                chip.className = 'status-chip';
+                chip.innerHTML = '<span class="spinner"></span> Fetching...';
+            }
+        }
+
+        function resetCountdown() {
+            refreshCountdown = REFRESH_INTERVAL / 1000;
+            updateCountdownDisplay();
+            if (countdownInterval) clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                refreshCountdown--;
+                updateCountdownDisplay();
+                if (refreshCountdown <= 0) {
+                    setStatus('fetching');
+                    fetchData();
                 }
+            }, 1000);
+        }
+
+        function updateCountdownDisplay() {
+            const mins = Math.floor(refreshCountdown / 60);
+            const secs = refreshCountdown % 60;
+            document.getElementById('countdownChip').textContent = 
+                `Next refresh: ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // ======================== UI UPDATES ========================
+        function updateUI() {
+            if (!allData || allData.length === 0) return;
+
+            const latestRun = allData[allData.length - 1];
+            const timeframes = ['15 Minute', '30 Minute', '45 Minute', '1 Hour'];
+            const roles = ['Entry Timing', 'Short-term Bias', 'Intra-day', 'Primary Trend'];
+
+            // Charts
+            updatePriceChart();
+            
+            // Timeframe Cards
+            const grid = document.getElementById('timeframesGrid');
+            grid.innerHTML = timeframes.map((tf, i) => {
+                const data = latestRun.timeframes[tf];
+                const drift = data.live_market_price - data.interval_close_price;
+                const driftPct = (drift / data.interval_close_price * 100).toFixed(2);
+                const driftClass = drift > 0 ? 'bullish' : drift < 0 ? 'bearish' : 'neutral';
+                const driftArrow = drift > 0 ? '↑' : drift < 0 ? '↓' : '→';
+                const fullTime = data.last_closed_candle_jst;
+
+                return `
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-timeframe">${tf}</div>
+                            <div class="role-badge">${roles[i]}</div>
+                        </div>
+                        <div class="price-current">$${data.live_market_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                        <div class="price-label">Current Price</div>
+                        <div class="price-close">Close: $${data.interval_close_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                        <div class="drift-pill ${driftClass}">
+                            ${driftArrow} ${Math.abs(drift).toFixed(2)} (${Math.abs(driftPct)}%)
+                        </div>
+                        ${data.pattern_found ? `<div class="pattern-badge">${data.pattern_found}</div>` : ''}
+                        <div class="explanation">${data.detailed_explanation}</div>
+                        <div class="prediction">📈 ${data.whats_next_prediction}</div>
+                        <div class="timestamp">Last candle: ${fullTime}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Strategy Panel
+            const strategyHTML = timeframes.map((tf, i) => {
+                const data = latestRun.timeframes[tf];
+                return `
+                    <div class="strategy-item">
+                        <div class="strategy-timeframe">${tf} - ${data.last_closed_candle_jst}</div>
+                        <div class="strategy-pattern">${data.pattern_found || 'Pattern'}</div>
+                        <div class="strategy-action">${data.whats_next_prediction}</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('strategyContainer').innerHTML = strategyHTML;
+
+            // Timeline
+            const timeline = document.getElementById('timelineWrapper');
+            const last8 = allData.slice(-8);
+            timeline.innerHTML = last8.map((run, idx) => {
+                const data = run.timeframes['15 Minute'];
+                const drift = data.live_market_price - data.interval_close_price;
+                const arrow = drift > 0 ? '↑' : drift < 0 ? '↓' : '→';
+                const color = drift > 0 ? '#10b981' : drift < 0 ? '#ef4444' : '#94a3b8';
+                const isLast = idx === last8.length - 1;
+                return `
+                    <div class="timeline-chip ${isLast ? 'active' : ''}" style="color: ${color}">
+                        <span class="timeline-price">$${data.live_market_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                        <span class="timeline-arrow">${arrow}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ======================== CANVAS CHART ========================
+        function updatePriceChart() {
+            const canvas = document.getElementById('priceChart');
+            const ctx = canvas.getContext('2d');
+            
+            // Set size
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width - 40;
+            canvas.height = 300;
+
+            // Get last 20 runs, 15m prices
+            const last20 = allData.slice(-20);
+            const prices = last20.map(run => run.timeframes['15 Minute'].live_market_price);
+            
+            if (prices.length === 0) return;
+
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+            const priceRange = maxPrice - minPrice || 1;
+            const padding = 40;
+            const width = canvas.width;
+            const height = canvas.height;
+            const chartWidth = width - padding * 2;
+            const chartHeight = height - padding * 2;
+
+            // Background
+            ctx.fillStyle = 'rgba(10, 14, 26, 0.5)';
+            ctx.fillRect(0, 0, width, height);
+
+            // Grid lines (5 horizontal)
+            ctx.strokeStyle = 'rgba(45, 55, 72, 0.3)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+
+                // Price labels (right-aligned)
+                const price = maxPrice - (priceRange / 5) * i;
+                ctx.fillStyle = '#64748b';
+                ctx.font = '12px sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText('$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), width - 8, y + 4);
+            }
+
+            // Plot points
+            const points = prices.map((price, i) => {
+                const x = padding + (chartWidth / (prices.length - 1 || 1)) * i;
+                const y = padding + chartHeight - ((price - minPrice) / priceRange) * chartHeight;
+                return { x, y, price };
             });
 
-            updateUI(fullHistory[fullHistory.length - 1]);
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-        } catch (e) {
-            document.getElementById('loader').innerText = "Failed to load data. Please check connection.";
+            // Fill under line
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.15)';
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            points.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.lineTo(points[points.length - 1].x, height - padding);
+            ctx.lineTo(points[0].x, height - padding);
+            ctx.closePath();
+            ctx.fill();
+
+            // Glow effect
+            ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
+            ctx.shadowBlur = 15;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            // Orange line
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 3;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            points.forEach((p, i) => {
+                if (i === 0) ctx.moveTo(p.x, p.y);
+                else ctx.lineTo(p.x, p.y);
+            });
+            ctx.stroke();
+
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+
+            // Points with price labels
+            ctx.fillStyle = '#f59e0b';
+            points.forEach((p, i) => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Price label on top of point
+                ctx.fillStyle = '#f59e0b';
+                ctx.font = 'bold 11px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('$' + p.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), p.x, p.y - 12);
+            });
         }
-    }
 
-    function updateUI(entry) {
-        const grid = document.getElementById('timeframeGrid');
-        grid.innerHTML = '';
-        
-        const chartData = { labels: [], prices: [] };
+        // Handle window resize
+        window.addEventListener('resize', updatePriceChart);
 
-        // Process each timeframe (15m, 30m, 45m, 1h)
-        Object.entries(entry.timeframes).forEach(([label, info]) => {
-            const isBull = info.pattern_found.toLowerCase().includes('bull');
-            const isBear = info.pattern_found.toLowerCase().includes('bear');
-            const badgeClass = isBull ? 'badge-bull' : (isBear ? 'badge-bear' : 'badge-neut');
-            
-            chartData.labels.push(info.last_closed_candle_jst.split(' ')[1]); // Time only for chart labels
-            chartData.prices.push(info.interval_close_price);
-
-            grid.innerHTML += `
-                <div class="card">
-                    <span class="badge ${badgeClass}">${info.pattern_found}</span>
-                    <div class="time-header">${label} Window</div>
-                    <span class="full-date">${info.last_closed_candle_jst}</span>
-                    
-                    <div class="price-display">
-                        <div>
-                            <div style="font-size: 0.7rem; color: #64748b;">INTERVAL CLOSE</div>
-                            <div class="price-val">$${info.interval_close_price.toLocaleString()}</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 0.7rem; color: #64748b;">LIVE PRICE</div>
-                            <div style="font-size: 1.1rem; font-weight: bold;">$${info.live_market_price.toLocaleString()}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="explanation">${info.detailed_explanation}</div>
-                    <div class="prediction-box">
-                        <strong>MARKET PROJECTION:</strong><br>
-                        ${info.whats_next_prediction}
-                    </div>
-                </div>
-            `;
-        });
-
-        renderChart(chartData);
-    }
-
-    function renderChart(data) {
-        const ctx = document.getElementById('priceChart').getContext('2d');
-        if (chartInstance) chartInstance.destroy();
-        
-        chartInstance = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: data.labels,
-                datasets: [{
-                    data: data.prices,
-                    borderColor: '#f59e0b',
-                    backgroundColor: 'rgba(245, 158, 11, 0.05)',
-                    fill: true,
-                    tension: 0.3,
-                    pointRadius: 6,
-                    pointHoverRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { ticks: { color: '#64748b' }, grid: { display: false } },
-                    y: { ticks: { color: '#64748b' }, grid: { color: '#2d3748' } }
-                }
-            }
-        });
-    }
-
-    loadData();
-    setInterval(loadData, 300000); // Sync every 5 mins
-</script>
+        // Initial fetch and setup
+        fetchData();
+        setInterval(() => {
+            setStatus('fetching');
+            fetchData();
+        }, REFRESH_INTERVAL);
+    </script>
 </body>
 </html>
