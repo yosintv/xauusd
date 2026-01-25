@@ -2,7 +2,7 @@ name: Bitcoin 5-Min Collector
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # RUNS EVERY 5 MINUTES
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 permissions:
