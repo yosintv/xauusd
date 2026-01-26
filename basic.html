@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>XAU/USD Gold Candlestick Pattern Bible • 2026 Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #0a0e17;
+            color: #e2e8f0;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .gold {
+            color: #fbbf24;
+        }
+        .gold-border {
+            border-color: #d97706;
+        }
+        .bull {
+            background: linear-gradient(to bottom, #22c55e, #16a34a);
+        }
+        .bear {
+            background: linear-gradient(to bottom, #ef4444, #dc2626);
+        }
+        .candle-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 80px;
+        }
+        .candle-body {
+            width: 14px;
+            border-radius: 3px;
+            position: relative;
+        }
+        .wick {
+            position: absolute;
+            width: 2px;
+            background: #94a3b8;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .pattern-card:hover {
+            border-color: #fbbf24;
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.12);
+            transform: translateY(-2px);
+        }
+        .highlight-box {
+            background: rgba(251, 191, 36, 0.06);
+            border: 1px solid rgba(251, 191, 36, 0.18);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-16">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-950/60 backdrop-blur-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
+                    XAU/USD <span class="gold">Candlestick Pattern Bible</span>
+                </h1>
+                <p class="text-slate-400 text-sm mt-1">High-probability setups for Gold trading • 2026 Edition</p>
+            </div>
+            <div class="hidden md:block">
+                <span class="px-4 py-1.5 bg-yellow-600/20 text-yellow-400 rounded-full text-xs font-bold border border-yellow-600/30">
+                    PRO TRADING REFERENCE
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pt-10">
+
+        <!-- Introduction & Golden Rule -->
+        <section class="mb-16 highlight-box p-8 rounded-2xl">
+            <h2 class="text-2xl font-bold gold mb-4">The Golden Rule of Gold Candlesticks</h2>
+            <p class="text-slate-300 leading-relaxed mb-4">
+                Candlestick patterns <strong>alone are not trade signals</strong>. For XAU/USD, success rate dramatically increases only when the pattern appears at a <strong>high-probability context</strong>:
+            </p>
+            <ul class="grid md:grid-cols-2 gap-3 text-sm text-slate-300">
+                <li>• Daily / Weekly S/R zones</li>
+                <li>• Previous day high/low</li>
+                <li>• Psychological levels ($1900, $2000, $2100, $2200...)</li>
+                <li>• Fibonacci 50%/61.8%/78.6%</li>
+                <li>• Order blocks / liquidity pools</li>
+                <li>• Major news reaction (NFP, CPI, FOMC)</li>
+            </ul>
+            <p class="mt-5 text-slate-400 italic text-sm">
+                A Shooting Star in the middle of a range = noise.<br>
+                A Shooting Star at $2080 (multi-year high) = potential fortune.
+            </p>
+        </section>
+
+        <!-- Patterns Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Bullish Engulfing -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-emerald-400 font-bold text-xl">Bullish Engulfing</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bear h-10"></div>
+                        <div class="candle-body bull h-24"></div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Large bullish candle completely engulfs the body of the previous bearish candle.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>Support zone • After impulsive leg down • London/NY session open</p>
+                    <p class="mt-3 italic text-slate-400">"$2015 holds → massive green H1 candle closes above $2022 → strong reversal"</p>
+                </div>
+            </div>
+
+            <!-- Shooting Star -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-rose-400 font-bold text-xl">Shooting Star</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bear h-5 mt-10">
+                            <div class="wick h-20 -top-14"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Small body near lows + very long upper shadow (≥2.5–3× body). Strong rejection.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>Resistance • After parabolic move • News spike failure</p>
+                    <p class="mt-3 italic text-slate-400">"$2080 CPI spike rejected → long wick → distribution begins"</p>
+                </div>
+            </div>
+
+            <!-- Morning Star -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-emerald-400 font-bold text-xl">Morning Star</h3>
+                    <div class="candle-container gap-2">
+                        <div class="candle-body bear h-20"></div>
+                        <div class="w-3 h-3 bg-slate-500 rounded-full self-center"></div>
+                        <div class="candle-body bull h-20"></div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    3-candle reversal: strong bear • small indecision (gap down) • strong bull closing >50% into 1st candle.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>Major low • Exhaustion • Asian range → London reversal</p>
+                </div>
+            </div>
+
+            <!-- Marubozu -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-white font-bold text-xl">Marubozu</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bull h-24 w-5"></div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Full-bodied candle with almost no shadows — complete dominance by buyers or sellers.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm text-amber-300">
+                    <strong>Do NOT fade</strong> Marubozu after news (NFP, rate decision, geopolitics).
+                </div>
+            </div>
+
+            <!-- Doji Family -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-amber-300 font-bold text-xl">Doji Family</h3>
+                    <div class="candle-container">
+                        <div class="relative w-5 h-1 bg-white">
+                            <div class="wick h-20 -top-10"></div>
+                            <div class="wick h-20 -top-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-3">
+                    Open ≈ Close. Market equilibrium / indecision.
+                </p>
+                <div class="text-xs grid grid-cols-2 gap-2 mt-2">
+                    <div>• Dragonfly → bullish reversal potential</div>
+                    <div>• Gravestone → bearish reversal potential</div>
+                    <div>• Long-legged → high volatility</div>
+                </div>
+                <p class="mt-3 italic text-slate-400 text-xs">
+                    Very common 15–60 min before FOMC / NFP — wait for breakout.
+                </p>
+            </div>
+
+            <!-- Tweezer Bottom -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-emerald-400 font-bold text-xl">Tweezer Bottom</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bear h-6">
+                            <div class="wick h-16 -top-4"></div>
+                        </div>
+                        <div class="candle-body bull h-6">
+                            <div class="wick h-16 -top-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Two or more candles with matching (or nearly identical) lows — strong support found.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold">Precision matters</p>
+                    <p>Best when lows match within 0.10–0.30 USD on Gold</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Reference Table -->
+        <section class="mt-20">
+            <h2 class="text-2xl font-bold mb-6 gold">Quick Reference – Reliability Ranking (XAU/USD Context)</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-slate-300 border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800/70">
+                            <th class="p-4">Pattern</th>
+                            <th class="p-4">Type</th>
+                            <th class="p-4">Strength (1–10)</th>
+                            <th class="p-4">Best Timeframe</th>
+                            <th class="p-4">Key Confirmation</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr><td class="p-4">Morning Star</td><td>Bull Reversal</td><td>9</td><td>H4 / D1</td><td>Close > 50% of 1st candle</td></tr>
+                        <tr><td class="p-4">Bullish Engulfing</td><td>Bull Reversal</td><td>8.5</td><td>H1–H4</td><td>Volume + break of high</td></tr>
+                        <tr><td class="p-4">Shooting Star</td><td>Bear Reversal</td><td>8.5</td><td>H1–H4</td><td>Rejection at round number</td></tr>
+                        <tr><td class="p-4">Evening Star</td><td>Bear Reversal</td><td>9</td><td>H4 / D1</td><td>Strong bear close</td></tr>
+                        <tr><td class="p-4">Bearish Engulfing</td><td>Bear Reversal</td><td>8</td><td>H1–H4</td><td>Break of engulfing low</td></tr>
+                        <tr><td class="p-4">Marubozu</td><td>Continuation</td><td>9</td><td>M15–H1</td><td>News / momentum</td></tr>
+                        <tr><td class="p-4">Tweezer Bottom/Top</td><td>Reversal</td><td>7.5</td><td>M15–H1</td><td>Exact level match</td></tr>
+                        <tr><td class="p-4">Doji (context dependent)</td><td>Indecision</td><td>6–9</td><td>All</td><td>Break of range</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Visual Examples Section -->
+        <section class="mt-20">
+            <h2 class="text-2xl font-bold mb-6 gold">Visual Examples of Common Gold Patterns</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <figure class="bg-slate-900/60 rounded-xl overflow-hidden border border-slate-800">
+                    <img src="https://tradersunion.com/uploads/articles/382/doji-candlestick-pattern.jpeg" alt="Doji candlestick pattern explained" class="w-full h-48 object-cover">
+                    <figcaption class="p-4 text-sm text-slate-400">Classic Doji – market indecision</figcaption>
+                </figure>
+
+                <figure class="bg-slate-900/60 rounded-xl overflow-hidden border border-slate-800">
+                    <img src="https://www.tradingsim.com/hs-fs/hubfs/Imported_Blog_Media/image-1-Mar-18-2022-09-42-56-10-AM.png?width=800&height=450&name=image-1-Mar-18-2022-09-42-56-10-AM.png" alt="Candlestick patterns cheat sheet" class="w-full h-48 object-cover">
+                    <figcaption class="p-4 text-sm text-slate-400">Multiple candlestick formations overview</figcaption>
+                </figure>
+
+                <figure class="bg-slate-900/60 rounded-xl overflow-hidden border border-slate-800">
+                    <img src="https://tradersunion.com/uploads/articles/26881/xau-usd.png" alt="XAU/USD gold chart example" class="w-full h-48 object-cover">
+                    <figcaption class="p-4 text-sm text-slate-400">Real XAU/USD price action with candles</figcaption>
+                </figure>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-20 border-t border-slate-800 pt-10 pb-8 text-center text-slate-500 text-sm">
+        <p>Created as trading reference • Not financial advice • Always combine with structure & risk management</p>
+        <p class="mt-2">Last updated • January 2026</p>
+    </footer>
+
+</body>
+</html>
