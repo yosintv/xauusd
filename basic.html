@@ -57,6 +57,16 @@
             background: rgba(251, 191, 36, 0.06);
             border: 1px solid rgba(251, 191, 36, 0.18);
         }
+        .table-row-alt:nth-child(even) {
+            background-color: rgba(71, 85, 105, 0.2);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide {
+            animation: slideIn 0.6s ease-out;
+        }
     </style>
 </head>
 <body class="min-h-screen pb-16">
@@ -81,7 +91,7 @@
     <main class="max-w-7xl mx-auto px-6 pt-10">
 
         <!-- Introduction & Golden Rule -->
-        <section class="mb-16 highlight-box p-8 rounded-2xl">
+        <section class="mb-16 highlight-box p-8 rounded-2xl animate-slide">
             <h2 class="text-2xl font-bold gold mb-4">The Golden Rule of Gold Candlesticks</h2>
             <p class="text-slate-300 leading-relaxed mb-4">
                 Candlestick patterns <strong>alone are not trade signals</strong>. For XAU/USD, success rate dramatically increases only when the pattern appears at a <strong>high-probability context</strong>:
@@ -104,7 +114,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <!-- Bullish Engulfing -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
                 <div class="flex justify-between items-start mb-5">
                     <h3 class="text-emerald-400 font-bold text-xl">Bullish Engulfing</h3>
                     <div class="candle-container">
@@ -123,7 +133,7 @@
             </div>
 
             <!-- Shooting Star -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
                 <div class="flex justify-between items-start mb-5">
                     <h3 class="text-rose-400 font-bold text-xl">Shooting Star</h3>
                     <div class="candle-container">
@@ -143,7 +153,7 @@
             </div>
 
             <!-- Morning Star -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
                 <div class="flex justify-between items-start mb-5">
                     <h3 class="text-emerald-400 font-bold text-xl">Morning Star</h3>
                     <div class="candle-container gap-2">
@@ -161,8 +171,46 @@
                 </div>
             </div>
 
+            <!-- Evening Star -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-rose-400 font-bold text-xl">Evening Star</h3>
+                    <div class="candle-container gap-2">
+                        <div class="candle-body bull h-20"></div>
+                        <div class="w-3 h-3 bg-slate-500 rounded-full self-center"></div>
+                        <div class="candle-body bear h-20"></div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    3-candle reversal: strong bull • small indecision (gap up) • strong bear closing <50% into 1st candle.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>Major high • Momentum exhaustion • Potential short entry</p>
+                </div>
+            </div>
+
+            <!-- Bearish Engulfing -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-rose-400 font-bold text-xl">Bearish Engulfing</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bull h-10"></div>
+                        <div class="candle-body bear h-24"></div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Large bearish candle completely engulfs the body of the previous bullish candle.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>Resistance zone • After impulsive leg up • Distribution signal</p>
+                    <p class="mt-3 italic text-slate-400">"$2085 rejected → massive red H1 candle closes below $2075 → reversal"</p>
+                </div>
+            </div>
+
             <!-- Marubozu -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
                 <div class="flex justify-between items-start mb-5">
                     <h3 class="text-white font-bold text-xl">Marubozu</h3>
                     <div class="candle-container">
@@ -178,7 +226,7 @@
             </div>
 
             <!-- Doji Family -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
                 <div class="flex justify-between items-start mb-5">
                     <h3 class="text-amber-300 font-bold text-xl">Doji Family</h3>
                     <div class="candle-container">
@@ -202,7 +250,7 @@
             </div>
 
             <!-- Tweezer Bottom -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300">
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
                 <div class="flex justify-between items-start mb-5">
                     <h3 class="text-emerald-400 font-bold text-xl">Tweezer Bottom</h3>
                     <div class="candle-container">
@@ -223,6 +271,102 @@
                 </div>
             </div>
 
+            <!-- Tweezer Top -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-rose-400 font-bold text-xl">Tweezer Top</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bull h-6">
+                            <div class="wick h-16 -top-4"></div>
+                        </div>
+                        <div class="candle-body bear h-6">
+                            <div class="wick h-16 -top-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Two or more candles with matching (or nearly identical) highs — strong resistance found.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold">High probability reversal</p>
+                    <p>Often marks exhaustion at key resistance levels</p>
+                </div>
+            </div>
+
+            <!-- Hammer -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-emerald-400 font-bold text-xl">Hammer</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bull h-5">
+                            <div class="wick h-20 -top-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Small body near top + long lower shadow (≥2.5× body). Bulls defend support.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>Support zone • Reversal from downtrend • High wick rejection</p>
+                </div>
+            </div>
+
+            <!-- Hanging Man -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-rose-400 font-bold text-xl">Hanging Man</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bear h-5">
+                            <div class="wick h-20 -top-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Small body near top + long lower shadow. Appears after uptrend — potential top formation.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>After strong uptrend • Resistance zone • Warning of reversal</p>
+                </div>
+            </div>
+
+            <!-- Harami -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-amber-300 font-bold text-xl">Harami</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bull h-20"></div>
+                        <div class="candle-body bear h-8"></div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Small candle body completely contained within the previous larger candle — momentum loss.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Signal</p>
+                    <p>Potential trend reversal or consolidation</p>
+                </div>
+            </div>
+
+            <!-- Piercing Line -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-6 pattern-card transition-all duration-300 animate-slide">
+                <div class="flex justify-between items-start mb-5">
+                    <h3 class="text-emerald-400 font-bold text-xl">Piercing Line</h3>
+                    <div class="candle-container">
+                        <div class="candle-body bear h-20"></div>
+                        <div class="candle-body bull h-20"></div>
+                    </div>
+                </div>
+                <p class="text-slate-300 mb-4">
+                    Bearish candle followed by bullish candle that closes >50% into the bearish body.
+                </p>
+                <div class="highlight-box p-4 rounded-lg text-sm">
+                    <p class="text-yellow-300 font-semibold mb-1">Typical context</p>
+                    <p>Support test • Strong reversal signal • Buy confirmation</p>
+                </div>
+            </div>
+
         </div>
 
         <!-- Quick Reference Table -->
@@ -232,55 +376,381 @@
                 <table class="w-full text-sm text-left text-slate-300 border-collapse">
                     <thead>
                         <tr class="bg-slate-800/70">
-                            <th class="p-4">Pattern</th>
-                            <th class="p-4">Type</th>
-                            <th class="p-4">Strength (1–10)</th>
-                            <th class="p-4">Best Timeframe</th>
-                            <th class="p-4">Key Confirmation</th>
+                            <th class="p-4 font-semibold">Pattern</th>
+                            <th class="p-4 font-semibold">Type</th>
+                            <th class="p-4 font-semibold">Strength (1–10)</th>
+                            <th class="p-4 font-semibold">Best Timeframe</th>
+                            <th class="p-4 font-semibold">Key Confirmation</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-800">
-                        <tr><td class="p-4">Morning Star</td><td>Bull Reversal</td><td>9</td><td>H4 / D1</td><td>Close > 50% of 1st candle</td></tr>
-                        <tr><td class="p-4">Bullish Engulfing</td><td>Bull Reversal</td><td>8.5</td><td>H1–H4</td><td>Volume + break of high</td></tr>
-                        <tr><td class="p-4">Shooting Star</td><td>Bear Reversal</td><td>8.5</td><td>H1–H4</td><td>Rejection at round number</td></tr>
-                        <tr><td class="p-4">Evening Star</td><td>Bear Reversal</td><td>9</td><td>H4 / D1</td><td>Strong bear close</td></tr>
-                        <tr><td class="p-4">Bearish Engulfing</td><td>Bear Reversal</td><td>8</td><td>H1–H4</td><td>Break of engulfing low</td></tr>
-                        <tr><td class="p-4">Marubozu</td><td>Continuation</td><td>9</td><td>M15–H1</td><td>News / momentum</td></tr>
-                        <tr><td class="p-4">Tweezer Bottom/Top</td><td>Reversal</td><td>7.5</td><td>M15–H1</td><td>Exact level match</td></tr>
-                        <tr><td class="p-4">Doji (context dependent)</td><td>Indecision</td><td>6–9</td><td>All</td><td>Break of range</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Morning Star</td><td>Bull Reversal</td><td class="text-emerald-400 font-bold">9</td><td>H4 / D1</td><td>Close > 50% of 1st candle</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Evening Star</td><td>Bear Reversal</td><td class="text-emerald-400 font-bold">9</td><td>H4 / D1</td><td>Strong bear close</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Marubozu</td><td>Continuation</td><td class="text-emerald-400 font-bold">9</td><td>M15–H1</td><td>News / momentum</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Bullish Engulfing</td><td>Bull Reversal</td><td class="text-yellow-400">8.5</td><td>H1–H4</td><td>Volume + break of high</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Shooting Star</td><td>Bear Reversal</td><td class="text-yellow-400">8.5</td><td>H1–H4</td><td>Rejection at round number</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Bearish Engulfing</td><td>Bear Reversal</td><td class="text-yellow-400">8</td><td>H1–H4</td><td>Break of engulfing low</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Hammer</td><td>Bull Reversal</td><td class="text-yellow-400">8</td><td>H1–H4</td><td>Break above body</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Piercing Line</td><td>Bull Reversal</td><td class="text-yellow-400">8</td><td>H1–H4</td><td>Close > 50% penetration</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Tweezer Bottom/Top</td><td>Reversal</td><td class="text-orange-400">7.5</td><td>M15–H1</td><td>Exact level match</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Harami</td><td>Reversal/Consolidation</td><td class="text-orange-400">7</td><td>H1–H4</td><td>Next candle confirmation</td></tr>
+                        <tr class="table-row-alt hover:bg-slate-700/30"><td class="p-4">Doji (context dependent)</td><td>Indecision</td><td class="text-orange-400">6–9</td><td>All</td><td>Break of range</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Visual Examples Section -->
-        <section class="mt-20">
-            <h2 class="text-2xl font-bold mb-6 gold">Visual Examples of Common Gold Patterns</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Advanced Strategies Section -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Advanced Trading Strategies & Context Rules</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-bold text-emerald-400 mb-3">⭐ Higher Probability Setups</h3>
+                    <ul class="text-slate-300 text-sm space-y-2">
+                        <li><strong>Pattern + S/R Zone:</strong> Bullish Engulfing at $2000 support = 85% win rate</li>
+                        <li><strong>Pattern + News:</strong> Marubozu after NFP = strong momentum continuation</li>
+                        <li><strong>Multi-timeframe Confirmation:</strong> H4 Morning Star + D1 support = high-probability long</li>
+                        <li><strong>Liquidity Clusters:</strong> Patterns at round numbers ($2050, $2100) are stronger</li>
+                        <li><strong>Session Open Patterns:</strong> London open (H1 candlestick) more reliable than Asia</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-rose-400 mb-3">❌ Avoid These Traps</h3>
+                    <ul class="text-slate-300 text-sm space-y-2">
+                        <li><strong>Pattern in the middle of range:</strong> Noise. Wait for structure.</li>
+                        <li><strong>Doji before major news:</strong> Don't trade — volatility expansion will happen</li>
+                        <li><strong>Reversal pattern vs. strong trend:</strong> Hammers fail in downtrends — use with caution</li>
+                        <li><strong>Trading into news without plan:</strong> Spreads widen, slippage increases 3–5x</li>
+                        <li><strong>Ignoring risk/reward:</strong> Even 90% win-rate pattern loses money with bad R:R</li>
+                    </ul>
+                </div>
+            </div>
 
-                <figure class="bg-slate-900/60 rounded-xl overflow-hidden border border-slate-800">
-                    <img src="https://tradersunion.com/uploads/articles/382/doji-candlestick-pattern.jpeg" alt="Doji candlestick pattern explained" class="w-full h-48 object-cover">
-                    <figcaption class="p-4 text-sm text-slate-400">Classic Doji – market indecision</figcaption>
-                </figure>
+            <div class="mt-6 border-t border-slate-600 pt-6">
+                <h3 class="text-lg font-bold text-amber-300 mb-3">🎯 Real Example: Shooting Star at $2080</h3>
+                <div class="bg-slate-800/50 p-4 rounded-lg text-sm text-slate-300 space-y-2">
+                    <p><strong>Setup:</strong> H4 chart, $2080 is a 2-year resistance. CPI data released → price spikes to $2085.</p>
+                    <p><strong>Pattern:</strong> Long wick rejection (Shooting Star) closes at $2075.</p>
+                    <p><strong>Context:</strong> Daily chart shows failed breakout, order block 10 pips below.</p>
+                    <p><strong>Trade:</strong> Short from $2078, stop at $2088, target $2050 order block. Risk:Reward = 1:3.</p>
+                    <p class="text-yellow-300"><strong>Result:</strong> Pattern alone = 50% odds. Pattern + S/R + daily confirmation = 80%+ odds.</p>
+                </div>
+            </div>
+        </section>
 
-                <figure class="bg-slate-900/60 rounded-xl overflow-hidden border border-slate-800">
-                    <img src="https://www.tradingsim.com/hs-fs/hubfs/Imported_Blog_Media/image-1-Mar-18-2022-09-42-56-10-AM.png?width=800&height=450&name=image-1-Mar-18-2022-09-42-56-10-AM.png" alt="Candlestick patterns cheat sheet" class="w-full h-48 object-cover">
-                    <figcaption class="p-4 text-sm text-slate-400">Multiple candlestick formations overview</figcaption>
-                </figure>
+        <!-- Risk Management Section -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Risk Management Rules for Gold Candlesticks</h2>
+            
+            <div class="space-y-4 text-slate-300">
+                <div class="flex gap-4">
+                    <div class="text-2xl font-bold text-emerald-400 flex-shrink-0">1</div>
+                    <div>
+                        <p class="font-semibold">Stop Loss Placement</p>
+                        <p class="text-sm mt-1">Place SL 5–10 pips beyond the pattern's high/low, not exactly at it. Wicks can trigger stops before reversal.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="text-2xl font-bold text-emerald-400 flex-shrink-0">2</div>
+                    <div>
+                        <p class="font-semibold">Risk:Reward Minimum 1:2</p>
+                        <p class="text-sm mt-1">Never take a trade unless your profit target is at least 2x your risk. Candlestick patterns alone don't guarantee wins.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="text-2xl font-bold text-emerald-400 flex-shrink-0">3</div>
+                    <div>
+                        <p class="font-semibold">Position Sizing</p>
+                        <p class="text-sm mt-1">Risk no more than 1-2% of your account on a single trade. Use micro lots or adjust shares accordingly.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="text-2xl font-bold text-emerald-400 flex-shrink-0">4</div>
+                    <div>
+                        <p class="font-semibold">Avoid Overtrading Near News</p>
+                        <p class="text-sm mt-1">30 minutes before/after major economic data, volatility spikes and patterns fail. Skip these windows.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="text-2xl font-bold text-emerald-400 flex-shrink-0">5</div>
+                    <div>
+                        <p class="font-semibold">Confirm with Volume / Price Action</p>
+                        <p class="text-sm mt-1">A pattern is stronger if accompanied by higher volume and follow-through. Wait for next candle confirmation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <figure class="bg-slate-900/60 rounded-xl overflow-hidden border border-slate-800">
-                    <img src="https://tradersunion.com/uploads/articles/26881/xau-usd.png" alt="XAU/USD gold chart example" class="w-full h-48 object-cover">
-                    <figcaption class="p-4 text-sm text-slate-400">Real XAU/USD price action with candles</figcaption>
-                </figure>
+        <!-- Trading Psychology Section -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Trading Psychology & Common Mistakes</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="text-amber-300 font-bold mb-3">❌ Mistake #1: "Perfect" Pattern Hunting</h3>
+                    <p class="text-sm text-slate-300">Waiting for the "textbook perfect" Morning Star costs you 10 setups. Real trading patterns are 80% textbook, not 100%. Accept "good enough" patterns at strong structure.</p>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="text-amber-300 font-bold mb-3">❌ Mistake #2: Pattern Chasing</h3>
+                    <p class="text-sm text-slate-300">Seeing a pattern that already reversed and trying to enter late. Always enter at pattern completion, not at profit-taking stage.</p>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="text-amber-300 font-bold mb-3">❌ Mistake #3: Revenge Trading</h3>
+                    <p class="text-sm text-slate-300">Losing on a Shooting Star short, then immediately taking a Bullish Engulfing long without proper plan. Emotions + patterns = account wipeout.</p>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="text-amber-300 font-bold mb-3">❌ Mistake #4: Ignoring Confluence</h3>
+                    <p class="text-sm text-slate-300">Taking an isolated Doji formation without checking daily S/R. The stronger the confluence, the higher the edge. Always zoom out.</p>
+                </div>
+            </div>
+        </section>
 
+        <!-- Session-Specific Guide -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Session-Specific Candlestick Guide (Best Patterns by Session)</h2>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-400 mb-2">🌙 Asian Session (22:00–07:00 UTC)</h3>
+                    <ul class="text-xs text-slate-300 space-y-1">
+                        <li>• Lower volatility, fewer patterns form</li>
+                        <li>• Doji very common (consolidation before London)</li>
+                        <li>• Avoid Marubozu fades — no follow-through</li>
+                        <li>• Best: Patience, wait for London open</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="font-bold text-emerald-400 mb-2">📍 London Session (08:00–16:00 UTC)</h3>
+                    <ul class="text-xs text-slate-300 space-y-1">
+                        <li>• Highest volatility — clearest patterns</li>
+                        <li>• Engulfing patterns most reliable</li>
+                        <li>• Shooting Stars at resistance highly accurate</li>
+                        <li>• Best: Take aggressive positions here</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="font-bold text-yellow-400 mb-2">🗽 NY Session (12:30–21:00 UTC)</h3>
+                    <ul class="text-xs text-slate-300 space-y-1">
+                        <li>• High volatility overlaps with London</li>
+                        <li>• News catalysts (NFP, CPI) = Marubozu</li>
+                        <li>• Evening Star rejections at key levels common</li>
+                        <li>• Best: Trade news breakouts, not pullbacks</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Economic Events -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">How Gold Responds to Major Economic Events</h2>
+            
+            <div class="space-y-3">
+                <div class="flex gap-4 bg-slate-800/50 p-4 rounded-lg">
+                    <div class="text-xl font-bold text-red-400 flex-shrink-0">📊</div>
+                    <div>
+                        <p class="font-semibold text-slate-200">NFP (Non-Farm Payroll) - 1st Friday of Month</p>
+                        <p class="text-sm text-slate-300 mt-1">Gold spikes on weak data (usually down), reverses sharply on strong data. Expect Marubozu or Shooting Stars. Volatility often 50+ pips in 10 minutes.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 bg-slate-800/50 p-4 rounded-lg">
+                    <div class="text-xl font-bold text-blue-400 flex-shrink-0">📊</div>
+                    <div>
+                        <p class="font-semibold text-slate-200">CPI (Inflation Data) - Monthly</p>
+                        <p class="text-sm text-slate-300 mt-1">Higher inflation = Gold rallies. Lower inflation = Gold dumps. Watch for reversal patterns at psychological levels post-release.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 bg-slate-800/50 p-4 rounded-lg">
+                    <div class="text-xl font-bold text-green-400 flex-shrink-0">📊</div>
+                    <div>
+                        <p class="font-semibold text-slate-200">FOMC Rate Decision - Every 6 weeks</p>
+                        <p class="text-sm text-slate-300 mt-1">Doji patterns 1 hour before announcement common. On decision: strong Marubozu (direction depends on hawkish/dovish tone). Don't fight the Marubozu momentum.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 bg-slate-800/50 p-4 rounded-lg">
+                    <div class="text-xl font-bold text-amber-400 flex-shrink-0">📊</div>
+                    <div>
+                        <p class="font-semibold text-slate-200">Fed Chair Speech / Geopolitical News</p>
+                        <p class="text-sm text-slate-300 mt-1">Unpredictable direction, but always creates sharp Marubozu moves. Risk/reward on these event patterns is usually poor unless you predict the direction correctly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Checklists -->
+        <section class="mt-20 grid md:grid-cols-2 gap-6">
+            <div class="highlight-box p-6 rounded-2xl animate-slide">
+                <h3 class="text-xl font-bold gold mb-4">✅ Pre-Trade Checklist (Before You Enter)</h3>
+                <ul class="text-sm text-slate-300 space-y-2">
+                    <li>☑ Pattern formed at identified S/R zone (not random)</li>
+                    <li>☑ Confirmed with previous candlestick & wick shapes</li>
+                    <li>☑ Daily chart shows supporting structure (trend, levels)</li>
+                    <li>☑ Stop loss is 10+ pips away from pattern low/high</li>
+                    <li>☑ Profit target is 2x+ risk (R:R minimum 1:2)</li>
+                    <li>☑ Position size = 1-2% account risk</li>
+                    <li>☑ No major news within next 2 hours</li>
+                    <li>☑ Current session is favorable for pattern type</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box p-6 rounded-2xl animate-slide">
+                <h3 class="text-xl font-bold gold mb-4">📋 Post-Trade Analysis (After You Exit)</h3>
+                <ul class="text-sm text-slate-300 space-y-2">
+                    <li>☑ Did pattern form at multi-timeframe confluence?</li>
+                    <li>☑ Was the entry/exit optimal (within 2-3 pips)?</li>
+                    <li>☑ Did price follow expected target or get stopped out?</li>
+                    <li>☑ Log the pattern type, session, and result (W/L)</li>
+                    <li>☑ Calculate win rate by pattern over 30+ trades</li>
+                    <li>☑ Identify your best-performing patterns</li>
+                    <li>☑ Adjust strategy: focus on high-probability setups</li>
+                    <li>☑ Review chart again to spot what you missed</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Timeframe Guide -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Timeframe Strategies: Which Pattern Works Best Where</h2>
+            
+            <div class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <h4 class="font-bold text-emerald-400 mb-2">M15 / M30 (Scalping)</h4>
+                        <p class="text-xs text-slate-300 mb-2">Best patterns: Hammer, Shooting Star, Doji</p>
+                        <p class="text-xs text-slate-300">Focus on tight stops (3-5 pips), quick profits (10-20 pips). Patterns form faster but fail faster. Requires constant chart watching.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <h4 class="font-bold text-amber-400 mb-2">H1 (Swing/Intraday)</h4>
+                        <p class="text-xs text-slate-300 mb-2">Best patterns: Engulfing, Morning Star, Marubozu</p>
+                        <p class="text-xs text-slate-300">Sweet spot for beginners. Clear patterns, reliable S/R zones. Targets 40-100+ pips. Can trade 2-3 times per day.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-400 mb-2">H4 (Swing/Intermediate)</h4>
+                        <p class="text-xs text-slate-300 mb-2">Best patterns: Morning/Evening Star, 3-day patterns</p>
+                        <p class="text-xs text-slate-300">High accuracy patterns. Targets 100-300+ pips. Trade 1-2 times per week. Requires patience between setups.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">D1 (Long-term/Position)</h4>
+                        <p class="text-xs text-slate-300 mb-2">Best patterns: Morning/Evening Star, Engulfing</p>
+                        <p class="text-xs text-slate-300">Highest win rate but slowest. Targets 200-800+ pips. Trade 2-4 times per month. Fits busy schedules.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Pattern Combinations -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Powerful Pattern Combinations (Setup on Setup)</h2>
+            
+            <div class="space-y-3">
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <p class="font-bold text-emerald-400 mb-1">🎯 Bullish Combo: Hammer + Bullish Engulfing</p>
+                    <p class="text-sm text-slate-300">Hammer forms at support → next candle is Bullish Engulfing. Extremely high probability reversal. Target 2-3x risk.</p>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <p class="font-bold text-rose-400 mb-1">🎯 Bearish Combo: Shooting Star + Bearish Engulfing</p>
+                    <p class="text-sm text-slate-300">Shooting Star at resistance → next candle is Bearish Engulfing. Strong distribution. Target support 50-100+ pips down.</p>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <p class="font-bold text-amber-400 mb-1">🎯 Reversal Combo: Tweezer Bottom + Piercing Line</p>
+                    <p class="text-sm text-slate-300">Two candles test same low (Tweezer) → third candle closes 50%+ above first candle (Piercing Line). Very reliable bounce pattern.</p>
+                </div>
+                
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <p class="font-bold text-blue-400 mb-1">🎯 Continuation Combo: Doji + Marubozu</p>
+                    <p class="text-sm text-slate-300">Doji shows indecision → next candle is strong Marubozu. Breakout direction is confirmed. Trade the Marubozu's direction.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools and Resources -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Recommended Tools & Resources for Gold Trading</h2>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="text-emerald-400 font-bold mb-3">📱 Charting & Analysis</h3>
+                    <ul class="text-sm text-slate-300 space-y-1">
+                        <li>• TradingView (Best for pattern analysis & alerts)</li>
+                        <li>• MT4/MT5 (Industry standard for gold brokers)</li>
+                        <li>• Thinkorswim (Advanced charting, free)</li>
+                        <li>• Forex.com / OANDA (Live gold charts)</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-amber-300 font-bold mb-3">📊 Economic Calendar</h3>
+                    <ul class="text-sm text-slate-300 space-y-1">
+                        <li>• Investing.com Economic Calendar</li>
+                        <li>• ForexFactory.com</li>
+                        <li>• Tradingeconomics.com</li>
+                        <li>• Bloomberg Terminal (Institutional)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-slate-800/50 p-4 rounded-lg">
+                <p class="text-sm text-slate-300"><strong>⭐ Pro Tip:</strong> Set alerts on TradingView for specific patterns (Engulfing, Morning Star) at key S/R zones. Let the chart notify you instead of staring at screens all day.</p>
+            </div>
+        </section>
+
+        <!-- Final Summary -->
+        <section class="mt-20 highlight-box p-8 rounded-2xl animate-slide">
+            <h2 class="text-2xl font-bold gold mb-6">Your 30-Day Action Plan</h2>
+            
+            <div class="space-y-3">
+                <div class="flex gap-3">
+                    <div class="text-lg font-bold text-emerald-400">Week 1:</div>
+                    <div class="text-sm text-slate-300">Study all 12 patterns. Identify them on past charts (no live trading). Learn their formations & context.</div>
+                </div>
+                
+                <div class="flex gap-3">
+                    <div class="text-lg font-bold text-emerald-400">Week 2:</div>
+                    <div class="text-sm text-slate-300">Paper trade (demo account) 10-15 patterns at major S/R zones. Record entry/exit reasons. Build confidence.</div>
+                </div>
+                
+                <div class="flex gap-3">
+                    <div class="text-lg font-bold text-emerald-400">Week 3:</div>
+                    <div class="text-sm text-slate-300">Start live trading with 0.1 micro lots. Focus on H1 timeframe only. Risk 0.5% per trade max. Log every trade.</div>
+                </div>
+                
+                <div class="flex gap-3">
+                    <div class="text-lg font-bold text-emerald-400">Week 4:</div>
+                    <div class="text-sm text-slate-300">Review 30+ live trades. Calculate win rate by pattern. Double down on your best patterns. Eliminate losers.</div>
+                </div>
+            </div>
+
+            <div class="mt-6 border-t border-slate-600 pt-6">
+                <p class="text-slate-300"><strong class="gold">Remember:</strong> Candlestick patterns are tools, not guarantees. Success comes from combining patterns with price structure (S/R), risk management, and emotional discipline. Master one pattern type first. Then expand. Quick profits come from fast execution; big profits come from patience and confluence.</p>
             </div>
         </section>
 
     </main>
 
+    <!-- Footer -->
     <footer class="mt-20 border-t border-slate-800 pt-10 pb-8 text-center text-slate-500 text-sm">
+        <p class="font-semibold text-slate-400 mb-2">XAU/USD Candlestick Pattern Bible 2026</p>
         <p>Created as trading reference • Not financial advice • Always combine with structure & risk management</p>
-        <p class="mt-2">Last updated • January 2026</p>
+        <p class="mt-3 text-xs">This guide is for educational purposes only. Gold trading involves substantial risk. Always use proper risk management and never risk more than you can afford to lose.</p>
+        <p class="mt-3">Last updated • January 2026 • © Trading Education</p>
     </footer>
 
 </body>
