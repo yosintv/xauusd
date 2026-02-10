@@ -8,10 +8,10 @@ const streamConfig = {
     "1": "https://pull.niur.live/live/stream-406865_lsd.m3u8?txSecret=8ad7f2587aa2b77cdc69528aa197c449&txTime=698b488a",
 
     // 2. DASH Stream with ClearKey DRM
-    "2": {
-        "url": "https://example.com/manifest.mpd",
-        "kid": "your_key_id_here", 
-        "key": "your_clear_key_here"
+    "primecricket": {
+        "url": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/pajvg2ord7/out/v1/564bb083afea4561a5a60c4447258379/cenc.mpd",
+        "kid": "75902b6304efb1d6323c833d42347d68", 
+        "key": "70c40016a0bba8ddc3aabcee112970c8"
     },
 
     // 3. Standard DASH Stream (No DRM)
