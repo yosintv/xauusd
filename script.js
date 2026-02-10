@@ -9,19 +9,22 @@ const streamConfig = {
     "1": "https://pull.niur.live/live/stream-406865_lsd.m3u8?txSecret=8ad7f2587aa2b77cdc69528aa197c449&txTime=698b488a",
     "willow": "https://ortdruuckehagkdtgwevu.poocloud.in/secure/NpjgELwuGLGoipabmSzEhFYQAbPtwlWV/0/1770802533/streamed-willow/index.m3u8",
 
-    // 2. DASH Stream with ClearKey DRM
+
+
+    // 2. Iframe Player Option
+    "player4": {
+        "type": "iframe",
+        "url": "https://embedsports.top/embed/admin/admin-willow-cricket/2"
+    },
+
+    // 3. DASH Stream with ClearKey DRM
     "primecricket": {
         "url": "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/pajvg2ord7/out/v1/564bb083afea4561a5a60c4447258379/cenc.mpd",
         "kid": "75902b6304efb1d6323c833d42347d68", 
         "key": "70c40016a0bba8ddc3aabcee112970c8"
     },
-
-    // 3. Iframe Player Option
-    "player4": {
-        "url": "https://embedsports.top/embed/admin/admin-willow-cricket/2", // Put your iframe link here
-        "type": "iframe"
-    },
-
+    
+    
     // 4. Standard DASH Stream (No DRM)
     "3": "https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd"
 };
