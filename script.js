@@ -1,7 +1,8 @@
 /**
  * CONFIGURATION SECTION
- * For standard streams: just use the URL string.
- * For DRM streams: use the { url, kid, key } object format.
+ * For standard streams: use the URL string.
+ * For DRM streams: use { url, kid, key }.
+ * For iframe sources: use { url, type: "iframe" }.
  */
 const streamConfig = {
     // 1. Standard HLS Stream
@@ -15,7 +16,13 @@ const streamConfig = {
         "key": "70c40016a0bba8ddc3aabcee112970c8"
     },
 
-    // 3. Standard DASH Stream (No DRM)
+    // 3. Iframe Player Option
+    "player4": {
+        "url": "https://embedsports.top/embed/admin/admin-willow-cricket/2", // Put your iframe link here
+        "type": "iframe"
+    },
+
+    // 4. Standard DASH Stream (No DRM)
     "3": "https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd"
 };
 
@@ -27,9 +34,10 @@ function getStreamId() {
 function loadPlayer() {
     const id = getStreamId();
     const config = streamConfig[id];
+    const playerDiv = document.getElementById('jwplayerDiv');
 
     if (!id || !config) {
-        document.getElementById('jwplayerDiv').innerHTML = `
+        playerDiv.innerHTML = `
             <div class="error-msg">
                 <h2>Invalid or Missing Stream ID</h2>
                 <p>Use ?id=1 or ?id=primecricket in the URL</p>
@@ -37,30 +45,34 @@ function loadPlayer() {
         return;
     }
 
-    // Extract URL and Keys whether config is a string or an object
     const isObject = typeof config === 'object';
     const streamUrl = isObject ? config.url : config;
+    const isIframe = isObject && config.type === "iframe";
+
+    // IFRAME LOGIC: If type is iframe, inject the iframe and stop
+    if (isIframe) {
+        playerDiv.innerHTML = `<iframe src="${streamUrl}" frameborder="0" scrolling="no" allowfullscreen="true" style="width:100%; height:100%; position:absolute; top:0; left:0;"></iframe>`;
+        return;
+    }
+
+    // VIDEO PLAYER LOGIC: Handle M3U8 and MPD
     const kid = isObject ? config.kid : null;
     const key = isObject ? config.key : null;
-
-    // Detect Type
     const streamType = streamUrl.toLowerCase().includes(".mpd") ? "dash" : "hls";
 
-    // Build Player Config
     let playerSetup = {
         file: streamUrl,
-        image: "https://web.cricfoot.net/logo.png", // Your Poster Image
+        image: "https://web.cricfoot.net/logo.png",
         type: streamType,
         autostart: true,
-        mute: false,          // Ensure sound is ON
-        volume: 100,         // Set volume to max
+        mute: false,
+        volume: 100,
         stretching: "uniform",
         width: "100%",
         height: "100%",
-        cast: {}             // Chromecast support
+        cast: {}
     };
 
-    // Add DRM if Keys are present
     if (kid && key) {
         playerSetup.drm = {
             clearkey: {
