@@ -31,7 +31,7 @@ function loadPlayer() {
         document.getElementById('jwplayerDiv').innerHTML = `
             <div class="error-msg">
                 <h2>Invalid or Missing Stream ID</h2>
-                <p>Use ?id=1 or ?id=2 in the URL</p>
+                <p>Use ?id=1 or ?id=primecricket in the URL</p>
             </div>`;
         return;
     }
@@ -48,11 +48,15 @@ function loadPlayer() {
     // Build Player Config
     let playerSetup = {
         file: streamUrl,
+        image: "https://web.cricfoot.net/logo.png", // Your Poster Image
         type: streamType,
         autostart: true,
+        mute: false,          // Ensure sound is ON
+        volume: 100,         // Set volume to max
         stretching: "uniform",
         width: "100%",
-        height: "100%"
+        height: "100%",
+        cast: {}             // Chromecast support
     };
 
     // Add DRM if Keys are present
