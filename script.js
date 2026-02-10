@@ -6,6 +6,7 @@
 const streamConfig = {
     // 1. Standard HLS Stream
     "1": "https://pull.niur.live/live/stream-406865_lsd.m3u8?txSecret=8ad7f2587aa2b77cdc69528aa197c449&txTime=698b488a",
+    "willow": "https://ortdruuckehagkdtgwevu.poocloud.in/secure/NpjgELwuGLGoipabmSzEhFYQAbPtwlWV/0/1770802533/streamed-willow/index.m3u8",
 
     // 2. DASH Stream with ClearKey DRM
     "primecricket": {
