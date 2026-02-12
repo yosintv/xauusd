@@ -4,7 +4,7 @@
  */
 const streamConfig = {
     // 1. Direct Stream Links
-    "1": "https://pull.niur.live/live/stream-406865_lsd.m3u8?txSecret=8ad7f2587aa2b77cdc69528aa197c449&txTime=698b488a",
+    "1": "https://pull.niur.live/live/stream-570313_lhd.m3u8?txSecret=c97e1b5c5946db86c7a6f7c91b58aef8&txTime=698e42f7",
     "willow": "https://ortdruuckehagkdtgwevu.poocloud.in/secure/NpjgELwuGLGoipabmSzEhFYQAbPtwlWV/0/1770802533/streamed-willow/index.m3u8",
 
     
