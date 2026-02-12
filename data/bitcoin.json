@@ -9343,5 +9343,42 @@
                 "whats_next_prediction": "Wait for a breakout."
             }
         }
+    },
+    {
+        "run_timestamp_jst": "2026-02-13 01:35 JST",
+        "timeframes": {
+            "15 Minute": {
+                "last_closed_candle_jst": "2026-02-13 01:15 JST",
+                "interval_close_price": 66008.0,
+                "live_market_price": 66377.0,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "30 Minute": {
+                "last_closed_candle_jst": "2026-02-13 01:00 JST",
+                "interval_close_price": 66008.0,
+                "live_market_price": 66393.0,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "45 Minute": {
+                "last_closed_candle_jst": "2026-02-13 00:45 JST",
+                "interval_close_price": 66008.0,
+                "live_market_price": 66398.0,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "1 Hour": {
+                "last_closed_candle_jst": "2026-02-13 00:00 JST",
+                "interval_close_price": 67096.0,
+                "live_market_price": 66398.0,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            }
+        }
     }
 ]
