@@ -1,0 +1,41 @@
+name: Election Data Sync
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Requests
+        run: pip install requests
+
+      - name: Run Update Script
+        run: python electionresult.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "ElectionBot"
+          git config --global user.email "actions@github.com"
+          git add HOR-T5Leader.json 2082.json
+          
+          # Only push if there are actual updates to the data
+          if git diff --staged --quiet; then
+            echo "No changes found in election data."
+          else
+            git commit -m "Election Update: $(date -u) (UTC)"
+            git push
+          fi
