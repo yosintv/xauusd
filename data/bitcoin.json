@@ -35058,5 +35058,42 @@
                 "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
             }
         }
+    },
+    {
+        "run_timestamp_jst": "2026-03-06 06:05 JST",
+        "timeframes": {
+            "15 Minute": {
+                "last_closed_candle_jst": "2026-03-06 05:45 JST",
+                "interval_close_price": 71270.0,
+                "live_market_price": 71341.0,
+                "pattern_found": "Bullish Doji",
+                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            },
+            "30 Minute": {
+                "last_closed_candle_jst": "2026-03-06 05:30 JST",
+                "interval_close_price": 71270.0,
+                "live_market_price": 71329.0,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "45 Minute": {
+                "last_closed_candle_jst": "2026-03-06 05:15 JST",
+                "interval_close_price": 71270.0,
+                "live_market_price": 71329.0,
+                "pattern_found": "Bullish Doji",
+                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            },
+            "1 Hour": {
+                "last_closed_candle_jst": "2026-03-06 05:00 JST",
+                "interval_close_price": 71270.0,
+                "live_market_price": 71329.0,
+                "pattern_found": "Bullish Doji",
+                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            }
+        }
     }
 ]
