@@ -1,0 +1,32 @@
+name: Auto Update BLV Data
+
+on:
+  schedule:
+    - cron: '0 */5 * * *' # Every 5 hours
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Stealth Library
+        run: pip install curl_cffi
+
+      - name: Execute Scraper
+        run: python update_blv.py
+
+      - name: Push to Repository
+        run: |
+          git config --global user.name "YoSinTV-Bot"
+          git config --global user.email "bot@yosintv.com"
+          git add blv.json
+          git commit -m "Updated matches: $(date)" || echo "No changes found"
+          git push
