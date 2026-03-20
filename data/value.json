@@ -38791,5 +38791,34 @@
                 "whats_next": "Wait for a clear signal."
             }
         }
+    },
+    {
+        "timestamp": "2026-03-20 17:23 +0000",
+        "data": {
+            "15m": {
+                "price": 4575.9,
+                "pattern": "Bullish Inside",
+                "explanation": "Detected: Bullish Inside.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            },
+            "30m": {
+                "price": 4575.38,
+                "pattern": "Normal",
+                "explanation": "No specific candlestick pattern detected.",
+                "whats_next": "Wait for a clear signal."
+            },
+            "45m": {
+                "price": 4575.38,
+                "pattern": "Bullish Inside",
+                "explanation": "Detected: Bullish Inside.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            },
+            "1h": {
+                "price": 4573.68,
+                "pattern": "Bullish Inside",
+                "explanation": "Detected: Bullish Inside.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            }
+        }
     }
 ]
