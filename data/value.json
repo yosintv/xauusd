@@ -57380,5 +57380,34 @@
                 "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
             }
         }
+    },
+    {
+        "timestamp": "2026-04-15 17:35 +0000",
+        "data": {
+            "15m": {
+                "price": 4801.62,
+                "pattern": "Bullish Doji 10 0.1",
+                "explanation": "Detected: Bullish Doji 10 0.1.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            },
+            "30m": {
+                "price": 4801.77,
+                "pattern": "Bullish Doji 10 0.1",
+                "explanation": "Detected: Bullish Doji 10 0.1.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            },
+            "45m": {
+                "price": 4801.77,
+                "pattern": "Normal",
+                "explanation": "No specific candlestick pattern detected.",
+                "whats_next": "Wait for a clear signal."
+            },
+            "1h": {
+                "price": 4801.77,
+                "pattern": "Normal",
+                "explanation": "No specific candlestick pattern detected.",
+                "whats_next": "Wait for a clear signal."
+            }
+        }
     }
 ]
