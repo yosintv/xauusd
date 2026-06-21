@@ -1,42 +1,5 @@
 [
     {
-        "run_timestamp_jst": "2026-04-10 18:40 JST",
-        "timeframes": {
-            "15 Minute": {
-                "last_closed_candle_jst": "2026-04-10 18:15 JST",
-                "interval_close_price": 71763.0,
-                "live_market_price": 71799.0,
-                "pattern_found": "Bullish Inside",
-                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            },
-            "30 Minute": {
-                "last_closed_candle_jst": "2026-04-10 18:00 JST",
-                "interval_close_price": 71763.0,
-                "live_market_price": 71799.0,
-                "pattern_found": "Normal",
-                "detailed_explanation": "No major patterns in last 5 periods.",
-                "whats_next_prediction": "Wait for a breakout."
-            },
-            "45 Minute": {
-                "last_closed_candle_jst": "2026-04-10 17:15 JST",
-                "interval_close_price": 71617.0,
-                "live_market_price": 71799.0,
-                "pattern_found": "Bullish Doji",
-                "detailed_explanation": "(Detected 1 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            },
-            "1 Hour": {
-                "last_closed_candle_jst": "2026-04-10 17:00 JST",
-                "interval_close_price": 71617.0,
-                "live_market_price": 71799.0,
-                "pattern_found": "Bullish Doji",
-                "detailed_explanation": "(Detected 4 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            }
-        }
-    },
-    {
         "run_timestamp_jst": "2026-04-10 19:35 JST",
         "timeframes": {
             "15 Minute": {
@@ -36905,6 +36868,43 @@
                 "live_market_price": 63993.31,
                 "pattern_found": "Bullish Inside",
                 "detailed_explanation": "(Detected 1 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            }
+        }
+    },
+    {
+        "run_timestamp_jst": "2026-06-22 01:15 JST",
+        "timeframes": {
+            "15 Minute": {
+                "last_closed_candle_jst": "2026-06-22 01:00 JST",
+                "interval_close_price": 64057.69,
+                "live_market_price": 64111.01,
+                "pattern_found": "Bullish Inside",
+                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            },
+            "30 Minute": {
+                "last_closed_candle_jst": "2026-06-22 00:30 JST",
+                "interval_close_price": 64134.49,
+                "live_market_price": 64109.39,
+                "pattern_found": "Bullish Doji",
+                "detailed_explanation": "(Detected 5 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            },
+            "45 Minute": {
+                "last_closed_candle_jst": "2026-06-22 00:00 JST",
+                "interval_close_price": 64220.97,
+                "live_market_price": 64109.39,
+                "pattern_found": "Bullish Inside",
+                "detailed_explanation": "(Detected 4 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            },
+            "1 Hour": {
+                "last_closed_candle_jst": "2026-06-22 00:00 JST",
+                "interval_close_price": 64134.49,
+                "live_market_price": 64109.39,
+                "pattern_found": "Bullish Doji",
+                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
                 "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
             }
         }
