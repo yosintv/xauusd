@@ -1,42 +1,5 @@
 [
     {
-        "run_timestamp_jst": "2026-05-01 22:50 JST",
-        "timeframes": {
-            "15 Minute": {
-                "last_closed_candle_jst": "2026-05-01 22:30 JST",
-                "interval_close_price": 78249.0,
-                "live_market_price": 78430.0,
-                "pattern_found": "Bullish Inside",
-                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            },
-            "30 Minute": {
-                "last_closed_candle_jst": "2026-05-01 22:00 JST",
-                "interval_close_price": 78279.0,
-                "live_market_price": 78430.0,
-                "pattern_found": "Bullish Inside",
-                "detailed_explanation": "(Detected 4 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            },
-            "45 Minute": {
-                "last_closed_candle_jst": "2026-05-01 21:45 JST",
-                "interval_close_price": 78279.0,
-                "live_market_price": 78430.0,
-                "pattern_found": "Bullish Doji",
-                "detailed_explanation": "(Detected 4 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            },
-            "1 Hour": {
-                "last_closed_candle_jst": "2026-05-01 21:00 JST",
-                "interval_close_price": 77886.0,
-                "live_market_price": 78425.0,
-                "pattern_found": "Bullish Inside",
-                "detailed_explanation": "(Detected 4 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            }
-        }
-    },
-    {
         "run_timestamp_jst": "2026-05-01 23:45 JST",
         "timeframes": {
             "15 Minute": {
@@ -36938,6 +36901,43 @@
                 "live_market_price": 65009.79,
                 "pattern_found": "Bullish Inside",
                 "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            }
+        }
+    },
+    {
+        "run_timestamp_jst": "2026-07-24 13:25 JST",
+        "timeframes": {
+            "15 Minute": {
+                "last_closed_candle_jst": "2026-07-24 13:00 JST",
+                "interval_close_price": 65347.21,
+                "live_market_price": 65367.79,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "30 Minute": {
+                "last_closed_candle_jst": "2026-07-24 12:30 JST",
+                "interval_close_price": 65405.03,
+                "live_market_price": 65367.79,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "45 Minute": {
+                "last_closed_candle_jst": "2026-07-24 12:00 JST",
+                "interval_close_price": 65354.47,
+                "live_market_price": 65367.79,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "1 Hour": {
+                "last_closed_candle_jst": "2026-07-24 12:00 JST",
+                "interval_close_price": 65405.03,
+                "live_market_price": 65367.79,
+                "pattern_found": "Bullish Inside",
+                "detailed_explanation": "(Detected 5 candle(s) ago) Bullish Inside: Consolidation pattern. Price is staying within the previous candle's range, waiting for a catalyst.",
                 "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
             }
         }
