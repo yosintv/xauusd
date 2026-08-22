@@ -1,42 +1,5 @@
 [
     {
-        "run_timestamp_jst": "2026-07-08 01:05 JST",
-        "timeframes": {
-            "15 Minute": {
-                "last_closed_candle_jst": "2026-07-08 00:45 JST",
-                "interval_close_price": 63875.58,
-                "live_market_price": 63834.27,
-                "pattern_found": "Bullish Doji",
-                "detailed_explanation": "(Detected 4 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
-                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
-            },
-            "30 Minute": {
-                "last_closed_candle_jst": "2026-07-08 00:30 JST",
-                "interval_close_price": 63875.58,
-                "live_market_price": 63814.47,
-                "pattern_found": "Normal",
-                "detailed_explanation": "No major patterns in last 5 periods.",
-                "whats_next_prediction": "Wait for a breakout."
-            },
-            "45 Minute": {
-                "last_closed_candle_jst": "2026-07-08 00:00 JST",
-                "interval_close_price": 63783.99,
-                "live_market_price": 63814.47,
-                "pattern_found": "Normal",
-                "detailed_explanation": "No major patterns in last 5 periods.",
-                "whats_next_prediction": "Wait for a breakout."
-            },
-            "1 Hour": {
-                "last_closed_candle_jst": "2026-07-08 00:00 JST",
-                "interval_close_price": 63875.58,
-                "live_market_price": 63814.47,
-                "pattern_found": "Normal",
-                "detailed_explanation": "No major patterns in last 5 periods.",
-                "whats_next_prediction": "Wait for a breakout."
-            }
-        }
-    },
-    {
         "run_timestamp_jst": "2026-07-08 03:15 JST",
         "timeframes": {
             "15 Minute": {
@@ -36971,6 +36934,43 @@
                 "live_market_price": 77051.6,
                 "pattern_found": "Bullish Doji",
                 "detailed_explanation": "(Detected 4 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            }
+        }
+    },
+    {
+        "run_timestamp_jst": "2026-08-23 08:10 JST",
+        "timeframes": {
+            "15 Minute": {
+                "last_closed_candle_jst": "2026-08-23 07:45 JST",
+                "interval_close_price": 76985.03,
+                "live_market_price": 77007.86,
+                "pattern_found": "Bullish Doji",
+                "detailed_explanation": "(Detected 2 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
+                "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
+            },
+            "30 Minute": {
+                "last_closed_candle_jst": "2026-08-23 07:30 JST",
+                "interval_close_price": 76985.03,
+                "live_market_price": 76994.91,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "45 Minute": {
+                "last_closed_candle_jst": "2026-08-23 06:45 JST",
+                "interval_close_price": 77044.02,
+                "live_market_price": 76994.91,
+                "pattern_found": "Normal",
+                "detailed_explanation": "No major patterns in last 5 periods.",
+                "whats_next_prediction": "Wait for a breakout."
+            },
+            "1 Hour": {
+                "last_closed_candle_jst": "2026-08-23 07:00 JST",
+                "interval_close_price": 76985.03,
+                "live_market_price": 76994.91,
+                "pattern_found": "Bullish Doji",
+                "detailed_explanation": "(Detected 5 candle(s) ago) Bullish Doji: Total market indecision. Bulls and Bears are in a stalemate; a breakout is usually imminent.",
                 "whats_next_prediction": "EXPECTED MOVE: Upward Strength. Strategy: Look for entry on a pullback or break of the pattern high."
             }
         }
