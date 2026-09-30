@@ -125304,5 +125304,34 @@
                 "whats_next": "Wait for a clear signal."
             }
         }
+    },
+    {
+        "timestamp": "2026-09-30 15:22 +0000",
+        "data": {
+            "15m": {
+                "price": 4158.02,
+                "pattern": "Normal",
+                "explanation": "No specific candlestick pattern detected.",
+                "whats_next": "Wait for a clear signal."
+            },
+            "30m": {
+                "price": 4157.88,
+                "pattern": "Normal",
+                "explanation": "No specific candlestick pattern detected.",
+                "whats_next": "Wait for a clear signal."
+            },
+            "45m": {
+                "price": 4157.88,
+                "pattern": "Normal",
+                "explanation": "No specific candlestick pattern detected.",
+                "whats_next": "Wait for a clear signal."
+            },
+            "1h": {
+                "price": 4157.88,
+                "pattern": "Normal",
+                "explanation": "No specific candlestick pattern detected.",
+                "whats_next": "Wait for a clear signal."
+            }
+        }
     }
 ]
