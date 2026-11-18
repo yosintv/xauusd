@@ -132165,5 +132165,34 @@
                 "whats_next": "Wait for a clear signal."
             }
         }
+    },
+    {
+        "timestamp": "2026-11-18 11:00 +0000",
+        "data": {
+            "15m": {
+                "price": 3771.34,
+                "pattern": "Bullish Inside",
+                "explanation": "Detected: Bullish Inside.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            },
+            "30m": {
+                "price": 3772.94,
+                "pattern": "Bullish Doji 10 0.1, Bullish Inside",
+                "explanation": "Detected: Bullish Doji 10 0.1, Bullish Inside.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            },
+            "45m": {
+                "price": 3772.94,
+                "pattern": "Bullish Inside",
+                "explanation": "Detected: Bullish Inside.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            },
+            "1h": {
+                "price": 3772.94,
+                "pattern": "Bullish Doji 10 0.1, Bullish Inside",
+                "explanation": "Detected: Bullish Doji 10 0.1, Bullish Inside.",
+                "whats_next": "Bias: Bullish. Expect upward momentum. Watch for a 'Bullish Marubozu' or a break above the current High for confirmation."
+            }
+        }
     }
 ]
